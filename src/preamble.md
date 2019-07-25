@@ -35,7 +35,7 @@ for XML files and folders. Further chapters review different file types:
 the [minimal necessary files](required-files-and-dtds.md) for PAULA documents,
 [metadata](metadata.md), [primary text data](primary-text-data.md),
 [tokenizations](spans-and-markables.md#tokenizations-and-token-markables) and [span annotations](spans-and-markables.md),
-[hierarchical graphs](structs.md) and [pointing
+[hierarchical graphs](hierarchical-structures.md#structs) and [pointing
 relations](pointing-relations.md). The final chapters give additional
 information on the optional use of [namespaces](namespaces.md), some
 special scenarios such as building [parallel

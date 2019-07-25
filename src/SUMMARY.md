@@ -7,7 +7,7 @@
 - [Metadata](./metadata.md)
 - [Primary text data](./primary-text-data.md)
 - [Spans and markables](./spans-and-markables.md)
-- [Structs](./structs.md)
+- [Hierarchical structures](./hierarchical-structures.md)
 - [Pointing relations](./pointing-relations.md)
 - [Namespaces](./namespaces.md)
 - [Special scenarios](./special-scenarios.md)
