@@ -13,4 +13,3 @@
 - [Special scenarios](./special-scenarios.md)
 - [Naming conventions](./naming-conventions.md)
 - [Older versions and deprecated components](./deprecated.md)
-- [PAULA XML](./paula.md)
