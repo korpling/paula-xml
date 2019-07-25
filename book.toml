@@ -1,0 +1,6 @@
+[book]
+authors = ["Amir Zeldes", "Florian Zipser", "Arne Neumnann", "Thomas Krause"]
+language = "en"
+multilingual = false
+src = "src"
+title = "PAULA XML Documentation"
