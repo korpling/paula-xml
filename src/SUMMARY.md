@@ -1,6 +1,6 @@
 # Summary
 
-- [Preamble](./preamble.md)
+[Preamble](./preamble.md)
 
 -----------
 
@@ -15,7 +15,4 @@
 - [Namespaces](./namespaces.md)
 - [Special scenarios](./special-scenarios.md)
 - [Naming conventions](./naming-conventions.md)
-
------------
-
 - [Older versions and deprecated components](./deprecated.md)
