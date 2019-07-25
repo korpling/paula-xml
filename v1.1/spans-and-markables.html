@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Spans and markables - PAULA XML Documentation</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li><a href="preamble.html"><strong aria-hidden="true">1.</strong> Preamble</a></li><li><a href="datamodel-overview.html"><strong aria-hidden="true">2.</strong> Datamodel overview</a></li><li><a href="corpus-structure.html"><strong aria-hidden="true">3.</strong> Corpus structure</a></li><li><a href="required-files-and-dtds.html"><strong aria-hidden="true">4.</strong> Required files and DTDs</a></li><li><a href="metadata.html"><strong aria-hidden="true">5.</strong> Metadata</a></li><li><a href="primary-text-data.html"><strong aria-hidden="true">6.</strong> Primary text data</a></li><li><a href="spans-and-markables.html" class="active"><strong aria-hidden="true">7.</strong> Spans and markables</a></li><li><a href="hierarchical-structures.html"><strong aria-hidden="true">8.</strong> Hierarchical structures</a></li><li><a href="pointing-relations.html"><strong aria-hidden="true">9.</strong> Pointing relations</a></li><li><a href="namespaces.html"><strong aria-hidden="true">10.</strong> Namespaces</a></li><li><a href="special-scenarios.html"><strong aria-hidden="true">11.</strong> Special scenarios</a></li><li><a href="naming-conventions.html"><strong aria-hidden="true">12.</strong> Naming conventions</a></li><li><a href="deprecated.html"><strong aria-hidden="true">13.</strong> Older versions and deprecated components</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">PAULA XML Documentation</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#spans-and-markables" id="spans-and-markables">Spans and markables</a></h1>
+<h2><a class="header" href="#introduction-to-spans-and-markables" id="introduction-to-spans-and-markables">Introduction to spans and markables</a></h2>
+<p>In PAULA it is possible to define spans of data for further annotation.
+Spans are defined using the <code>mark</code> element, which stands for markable
+and has two primary functions: defining a <a href="#tokenizations-and-token-markables">tokenization</a>
+for a primary text data and defining a non-terminal <a href="#annotation-span-markables">annotation
+span</a> node above the token level.</p>
+<h2><a class="header" href="#tokenizations-and-token-markables" id="tokenizations-and-token-markables">Tokenizations and token markables</a></h2>
+<p>A <code>tokenization</code> forms a minimal level of analysis that segments a
+<code>primary text data</code> file into units that can be annotated further. It is
+not possible to directly annotate text that is not tokenized, and every
+PAULA document must contain at least one <code>tokenization</code>. It is possible
+to include whitespace characters within the primary data and then ignore
+these characters while tokenizing, so that adjacent tokens are not
+interrupted by any characters on the tokenized level.
+The following example illustrates this principle.</p>
+<p><strong>Tokenization of the <code>primary text data</code> &quot;This is an example.&quot;</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+
+&lt;!DOCTYPE paula SYSTEM &quot;paula_mark.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_tok&quot;/&gt;
+
+&lt;markList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;tok&quot; 
+xml:base=&quot;mycorpus.doc1.text.xml&quot;&gt;
+    &lt;mark id=&quot;tok_1&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',1,4))&quot;/&gt;&lt;!-- This --&gt;
+    &lt;mark id=&quot;tok_2&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',6,2))&quot;/&gt;&lt;!-- is --&gt;
+    &lt;mark id=&quot;tok_3&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',9,2))&quot;/&gt;&lt;!-- an --&gt;
+    &lt;mark id=&quot;tok_4&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',12,7))&quot;/&gt;&lt;!--example--&gt;
+    &lt;mark id=&quot;tok_5&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',19,1))&quot;/&gt;&lt;!-- . --&gt;
+&lt;/markList&gt;
+&lt;/paula&gt;
+</code></pre>
+<p>The first token element with the id &quot;tok_1&quot; begins at the first
+character of the text (the letter &quot;T&quot;) and goes covering a total of 4
+character: &quot;This&quot;. Character 5 is a space, which has not been tokenized.
+The next token, &quot;tok_2&quot;, begins at character 6, covering 2 characters:
+&quot;is&quot;. It is also possible to define tokens with no textual extension,
+i.e. empty tokens. Such tokens have a string range spanning zero
+characters. However, they must still have an anchor position within the
+text. The following example illustrates an empty token in the sentence
+&quot;he takes people out to fish&quot;, where the unrealized subject of &quot;to fish&quot;
+is tokenized between &quot;out&quot; and &quot;to&quot; with a character span of zero
+characters.</p>
+<p><strong>Tokenization of the primary data &quot;he takes people out to fish&quot;</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+
+&lt;!DOCTYPE paula SYSTEM &quot;paula_mark.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc2_tok&quot;/&gt;
+
+&lt;markList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;tok&quot; 
+xml:base=&quot;mycorpus.doc2.text.xml&quot;&gt;
+&lt;mark id=&quot;tok_1&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',1,2))&quot;/&gt;&lt;!-- he --&gt;
+&lt;mark id=&quot;tok_2&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',4,5))&quot;/&gt;&lt;!-- takes --&gt;
+&lt;mark id=&quot;tok_3&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',10,6))&quot;/&gt;&lt;!--people--&gt;
+&lt;mark id=&quot;tok_4&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',17,3))&quot;/&gt;&lt;!-- out --&gt;
+&lt;mark id=&quot;tok_5&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',21,0))&quot;/&gt;&lt;!--   --&gt;
+&lt;mark id=&quot;tok_6&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',22,2))&quot;/&gt;&lt;!-- to --&gt;
+&lt;mark id=&quot;tok_7&quot; 
+    xlink:href=&quot;#xpointer(string-range(//body,'',25,4))&quot;/&gt;&lt;!--fish--&gt;
+&lt;/markList&gt;
+&lt;/paula&gt;
+</code></pre>
+<p>Although a PAULA tokenization file is defined with reference to the
+general markable DTD <code>paula_mark.dtd</code>, it is distinguished from other
+types of markables, specifically <a href="#annotation-span-markables">annotation markables</a>, in
+two ways. Firstly, the <code>@type</code> attribute of the element <code>markList</code>,
+which must be set to the value <code>tok</code>. Secondly, tokenization can only
+refer to a <code>primary text data</code> file. It is not possible to define a
+token pointing to a more complex structure (e.g. another markable or
+token).</p>
+<p>As of PAULA version 1.1 it is possible to have multiple <code>primary text data</code> files, each of which must then be tokenized. Multiple
+tokenizations of the same <code>primary text data</code> are not possible in PAULA
+1.1, but are planned as part of a future version of PAULA XML.</p>
+<h2><a class="header" href="#annotation-span-markables" id="annotation-span-markables">Annotation span markables</a></h2>
+<p>The element <code>mark</code> may be used to group together a set of
+<a href="#tokenizations-and-token-markables">tokens</a> for further annotation. This is usually done in
+order to annotate a certain feature-value pair which applies to these
+tokens. Span annotations therefore have the semantics of attribution
+within the graph structure, i.e. stating that an area of the data has a
+certain property or attribute. These attributes are realized in PAULA
+using <code>feat</code> annotation files, one or more of which can apply to any
+span defined by a markable. Span markables are defined with reference to
+the DTD <code>paula_mark.dtd</code>. The type of markable being annotated (e.g. a
+referent or referring expression in a discourse, a chunk for chunking
+annotation, etc.) is given by the <code>@type</code> attribute of the <code>markList</code>
+element, and may be any string value other than &quot;tok&quot; which is reserved
+for <a href="#tokenizations-and-token-markables">tokenizations</a>. Other values are not ruled out by
+the format, but it is recommended to use types that follow XML element
+naming conventions, i.e. strings that contain only alphanumeric ascii
+characters with no spaces and beginning with an alphabetic character.</p>
+<p>Markables may be continuous or discontinuous, i.e. they may apply to a
+set of consecutive tokens or to non-consecutive tokens. The following
+example illustrates both types of markables in a single file with the
+type &quot;chunk&quot;.</p>
+<p><strong>Markables of the type &quot;chunk&quot; above a set of six tokens &quot;I&quot; &quot;'ve
+&quot;picked&quot; &quot;the&quot; &quot;kids&quot; &quot;up&quot;</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+
+&lt;!DOCTYPE paula SYSTEM &quot;paula_mark.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_chunk_seg&quot;/&gt;
+
+&lt;markList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;chunk&quot; 
+xml:base=&quot;mycorpus.doc1.tok.xml&quot;&gt;
+    &lt;!-- I --&gt;
+    &lt;mark id=&quot;chunk_1&quot; xlink:href=&quot;#tok_1&quot;/&gt;
+    &lt;!-- 've picked...up --&gt;
+    &lt;mark id=&quot;chunk_2&quot; 
+    xlink:href=&quot;(#xpointer(id('tok_2')/range-to(id('tok_3'))),#tok_6)&quot;/&gt;
+    &lt;!-- the kids --&gt;
+    &lt;mark id=&quot;chunk_3&quot; 
+    xlink:href=&quot;#xpointer(id('tok_3')/range-to(id('tok_4')))&quot;/&gt;
+&lt;/markList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>In the example, three markables have been defined which refer to six
+tokens in the token file <code>mycorpus.doc1.tok.xml</code>, as entered in the
+<code>markList</code> element's <code>@xml:base</code> attribute. The first markable,
+&quot;chunk_1&quot; points to &quot;#tok_1&quot; in the token file which covers the
+string &quot;I&quot;. The third markable, &quot;chunk_3&quot;, points to a range of
+consecutive tokens, from &quot;tok_3&quot; to &quot;tok_4&quot;, which covers the words
+&quot;the kids&quot;. The chunk in the middle, &quot;chunk_2&quot;, points to a
+discontinuous set of tokens, namely a range &quot;tok_2&quot; to &quot;tok_3&quot; and a
+further individual token &quot;tok_6&quot;, corresponding to the tokens &quot;'ve
+picked&quot; and a later token &quot;up&quot;. These markables cannot be annotated
+further within this file (e.g. with the type of chunk as nominal,
+verbal, etc.). Further annotation of the markables beyond the markable
+list <code>@type</code> must be added in separate files as <code>feat</code> annotations.</p>
+<p>Note that the markable type is set once in the <code>markList</code> element for
+all markables in the file. To define markables of a different type, a
+separate markable file must be generated. Separate files are not
+required to have the same segmentations and constitute independent
+layers of annotation.</p>
+<h2><a class="header" href="#feats" id="feats">Feats</a></h2>
+<p>The element <code>feat</code> and corresponding feat files represent arbitrary
+key-value feature annotations which may be applied to a variety of
+elements, such as parts of speech or syntactic categories, but also
+metadata. They can be applied to mark elements to annotate <a href="#annotation-span-markables">spans of
+tokens</a> or even <a href="#tokenizations-and-token-markables">tokens</a> directly, but also
+to <a href="hierarchical-structures.html#structs"><code>struct</code></a> elements as part of non-hierarchical annotations
+or metadata annotation of <code>annoSet</code> elements. The following two examples
+illustrate feature annotation of spans and tokens. For other uses see
+<a href="metadata.html">metadata</a> and <a href="hierarchical-structures.html#annotating-structs-and-rels">annotating structs</a>. 
+In the next example a <code>featList</code> with the <code>@type</code> &quot;pos&quot;
+contains six <code>feat</code> elements, each annotating a single token with its
+part of speech in the <code>@value</code> attribute.</p>
+<p><strong>Annotating tokens with <code>feat</code> annotations for part of speech</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+
+&lt;!DOCTYPE paula SYSTEM &quot;paula_feat.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_pos&quot;/&gt;
+
+&lt;featList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;pos&quot; 
+xml:base=&quot;mycorpus.doc1.tok.xml&quot;&gt;
+    &lt;feat xlink:href=&quot;#tok_1&quot; value=&quot;PP&quot;/&gt;&lt;!-- I --&gt;
+    &lt;feat xlink:href=&quot;#tok_2&quot; value=&quot;VBP&quot;/&gt;&lt;!-- 've --&gt;
+    &lt;feat xlink:href=&quot;#tok_3&quot; value=&quot;VBN&quot;/&gt;&lt;!-- picked --&gt;
+    &lt;feat xlink:href=&quot;#tok_4&quot; value=&quot;DT&quot;/&gt;&lt;!-- the --&gt;
+    &lt;feat xlink:href=&quot;#tok_5&quot; value=&quot;NNS&quot;/&gt;&lt;!-- kids --&gt;
+    &lt;feat xlink:href=&quot;#tok_6&quot; value=&quot;RP&quot;/&gt;&lt;!-- up --&gt;
+&lt;/featList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>It is also possible to annotate more than one token at a time by using
+<a href="#annotation-span-markables">annotation span markables</a>, which cover one or more tokens
+each. In this case the features do not refer to a token file, but to a
+markable file which refers to some tokens in itself. The following
+example illustrates the annotation of such spans, which works in much
+the same way as the annotation of tokens.</p>
+<p><strong>Annotating spans from a markable file with <code>feat</code> annotations for chunk type</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+
+&lt;!DOCTYPE paula SYSTEM &quot;paula_feat.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_chunk_seg_chunk_type&quot;/&gt;
+
+&lt;featList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; 
+type=&quot;chunk_type&quot; xml:base=&quot;mycorpus.doc1.chunk_seg.xml&quot;&gt;
+    &lt;feat xlink:href=&quot;#chunk_1&quot; value=&quot;N&quot;/&gt;&lt;!-- I --&gt;
+    &lt;feat xlink:href=&quot;#chunk_2&quot; value=&quot;V&quot;/&gt;&lt;!-- 've picked _ up --&gt;
+    &lt;feat xlink:href=&quot;#chunk_3&quot; value=&quot;N&quot;/&gt;&lt;!-- the kids --&gt;
+&lt;/featList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>In this case, three features of the type &quot;chunk_type&quot; have been
+assigned to three markables in the file <code>mycorpus.doc1.chunk_seg.xml</code>.
+The &quot;chunk_type&quot; of the first markable is given the value &quot;N&quot;. The
+second markable receives the &quot;chunk_type&quot; &quot;V&quot; and the third is &quot;N&quot;
+again. Note that the tokens covered by the respective markables are not
+defined here, though comments to the right of each element can help keep
+track of the text covered by each annotation. The actual tokens covered
+by each markable are defined in the separate file
+<code>mycorpus.doc1.chunk_seg.xml</code>. There is also no necessary connection
+between the type of feature and the type of markable, though in many
+cases it makes sense to give them similar names, e.g. markables called
+&quot;chunk&quot; and an annotation &quot;chunk_type&quot; (see also <a href="#naming_conventions">naming
+conventions</a>).</p>
+<h2><a class="header" href="#multifeats" id="multifeats">Multifeats</a></h2>
+<p>In cases where multiple annotations always apply to the same nodes, it
+may be more economic to specify multiple, usually related annotations in
+the same file. This is made possible by the use of <code>multiFeat</code> files,
+together with the associated <code>paula_multiFeat.dtd</code>. Each multiFeat
+contains multiple feat annotations applying to the element specified in
+the <code>@xlink:href</code> attribute of the <code>multiFeat</code> element. Since the
+<code>multiFeat</code> itself is not an actual annotation, but a container for
+other annotations, the <code>multiFeatList</code> element is conventionally given
+the type &quot;multiFeat&quot;. The example below illustrates the use of multiFeat
+annotations.</p>
+<p><strong>Annotating multiple annotations using <code>multiFeat</code> elements.</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_multiFeat.dtd&quot;&gt;
+
+&lt;paula version=&quot;1.1&quot;&gt;
+&lt;header paula_id=&quot;mycorpus.doc1.tok_multiFeat&quot;/&gt;
+    
+&lt;multiFeatList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; 
+type=&quot;multiFeat&quot; xml:base=&quot;mycorpus.doc1.tok.xml&quot;&gt;
+
+    &lt;multiFeat xlink:href=&quot;#tok_1&quot;&gt; &lt;!-- I --&gt;
+        &lt;feat name=&quot;pos&quot; value=&quot;PPER&quot;/&gt;
+        &lt;feat name=&quot;lemma&quot; value=&quot;I&quot;/&gt;
+    &lt;/multiFeat&gt;
+    &lt;multiFeat xlink:href=&quot;#tok_2&quot;&gt; &lt;!-- 've --&gt;
+        &lt;feat name=&quot;pos&quot; value=&quot;VBP&quot;/&gt; 
+        &lt;feat name=&quot;lemma&quot; value=&quot;have&quot;/&gt;
+    &lt;/multiFeat&gt;
+    &lt;!-- ... --&gt;
+    
+&lt;/multiFeatList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>Note that there is no difference from the data model point of view
+between the use of multiple <code>feat</code> files or one <code>multiFeat</code> file
+specifying the same annotation types. Note also that when using
+<a href="namespaces.html">namespaces</a>, all annotations in a <code>multiFeat</code> have the
+same namespace, determined by the <code>multiFeat</code> file name. While it is
+possible to have different annotation in different <code>multiFeat</code> elements
+in the same file, it is recommended to avoid this, as it can quickly
+become confusing. The use of <code>multiFeat</code> annotations can also make it
+potentially difficult to add, remove and edit annotations after the
+fact, since separate annotation layers are mixed in one XML file.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="primary-text-data.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="hierarchical-structures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="primary-text-data.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="hierarchical-structures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
