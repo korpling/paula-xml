@@ -23,5 +23,6 @@ Execute mdBook to build a HTML version of the documentation in the `book/` subdi
 mdbook build
 ```
 
-
 See the [mdBook User Guide](https://rust-lang-nursery.github.io/mdBook/) for more instructions on how to build this documentation.
+
+Changes are automatically deployed to [https://korpling.github.io/paula-xml/develop/](https://korpling.github.io/paula-xml/develop/).
