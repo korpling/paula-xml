@@ -12,7 +12,7 @@ See the current PAULA documentation: [PAULA version 1.1](http://www.sfb632.uni-p
 
 ## Compile the documentation
 
-**Note that the markdown files in this repository are work in progress! If you just need the documentation use the link to the PDF file above.**
+**Note that the markdown files in this repository are work in progress! If you just need the released documentation use the link to the PDF file above.**
 
 The old documentation was written in Docbook but we are now migrating to Markdown and mdBook.
 
