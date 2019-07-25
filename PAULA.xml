@@ -1,0 +1,1861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+    <info>
+        <title>PAULA XML Documentation</title>
+        <subtitle>Format version 1.1</subtitle>
+        <releaseinfo>Version: P1.1.2013.1.21a</releaseinfo>
+        <pubdate>21 Jan 2013</pubdate>
+        <authorgroup>
+            <author>            
+                <personname>Amir Zeldes</personname>
+                <email>amir.zeldes@rz.hu-berlin.de</email>
+                
+                <affiliation>
+                    <orgname>SFB 632 D1</orgname>
+                    <orgdiv>Humboldt-Universität zu Berlin </orgdiv>
+                </affiliation>
+                
+            </author>
+            <author>            
+                <personname>Florian Zipser</personname>
+                <email>f.zipser@gmx.de</email>
+                
+                <affiliation>
+                    <orgname>SFB 632 D1</orgname>
+                    <orgdiv>Humboldt-Universität zu Berlin </orgdiv>
+                    <orgdiv>INRIA</orgdiv>
+                </affiliation>
+                
+            </author>
+            <author>            
+                <personname>Arne Neumann</personname>
+                <email>arne.neumann@uni-potsdam.de</email>
+                
+                <affiliation>
+                    <orgname>SFB 632 D1</orgname>
+                    <orgdiv>Universität Potsdam</orgdiv>
+                </affiliation>
+                
+            </author>
+        </authorgroup>
+        
+    </info>
+
+        <preface><title>Preamble</title>
+        <para>
+            <firstterm>PAULA XML</firstterm> or <firstterm>PAULA</firstterm> for short
+                (<firstterm>Potsdamer AUstauschformat Linguistischer Annotationen</firstterm>,
+            'Potsdam Exchange Format for Linguistic Annotations') is a standoff XML format designed
+            to represent a wide range of linguistically annotated textual and multi-modal corpora.
+            The format was created at Potsdam University and developed within SFB 632, the
+            collaborative research centre "Information Structure", subproject D1, "Linguistic
+            Database" at Potsdam University and Humboldt-Universität zu Berlin (see
+                <citation>Dipper2005</citation>, <citation>DipperGoetze2005</citation>,
+                <citation>ChiarcosEtAl2008</citation>). The description below represents the
+            normative documentation for PAULA version 1.1, with some notes on previous versions of
+            PAULA. For the latest documentation always check the PAULA Website which also contains an online HTML version of this documentation. </para>
+            <para>The standoff nature of PAULA refers to the fact that each layer of linguistic
+            annotation, such as part-of-speech annotations, lemmatizations, syntax trees,
+            coreference annotation etc. are stored in separate XML files which refer to the same raw
+            data. In this manner annotations can easily be added, deleted and updated without
+            disturbing independent annotation layers, and discontinuous or hierarchically
+            conflicting structures can be represented. Additionally the format ensures the
+            retainment of unaltered raw data, including white space and other elements often lost
+            due to restrictions of the encoding format. As a generalized XML format, PAULA is
+            indifferent to particular names or semantics of annotation structures. It concentrates
+            instead on the representation of corpus data as a set of arbitrarily labeled directed
+            acyclic graphs (so called multi-DAGs, wherein annotation projects may contain cycles as
+            long as these are on different annotation levels).</para>
+            <para>This documentation is structured as follows: the next chapter gives an overview of
+            the overall <link xlink:href="#datamodel">data model</link> of the current PAULA format,
+            followed by a chapter on <link xlink:href="#corpus_structure">corpus structure</link>
+            for XML files and folders. Further chapters review different file types: the <link
+                xlink:href="#required_files">minimal necessary files</link> for PAULA documents,
+                <link xlink:href="#metadata">metadata</link>, <link xlink:href="#primary_text_data"
+                >primary text data</link>, <link xlink:href="#tokenization">tokenizations</link> and
+                <link xlink:href="#mark">span annotations</link>, <link xlink:href="#struct"
+                >hierarchical graphs</link> and <link xlink:href="#pointing_relations">pointing
+                relations</link>. The final chapters give additional information on the optional use
+            of <link xlink:href="#namespaces">namespaces</link>, some special scenarios such as
+            building <link xlink:href="#parallel_corpora">parallel corpora</link>, <link
+                xlink:href="#dialogue_data">dialogue corpora</link> and <link
+                xlink:href="#multimodal">multimodal corpora</link>, recommendations for <link
+                xlink:href="#naming_conventions">file naming conventions</link> and information on
+                <link xlink:href="#versions">older/deprecated elements</link> of the PAULA XML
+            standard focusing on differences to the current version.</para>
+        </preface>
+    <chapter xml:id="datamodel">
+            <title>Datamodel overview</title>
+  
+                <para xlink:href="">PAULA projects are graphs dominated by a top level node refered
+                to as a <link xlink:href="#corpus"><classname>corpus</classname></link>. Corpus
+                objects comprise graphs of one or more annotated <link xlink:href="#document"
+                        ><classname>document</classname></link> objects, optionally organized within
+                a tree of <link xlink:href="#corpus"><classname>subcorpus</classname></link>
+                objects. The tree of corpus, subcorpora and documents corresponds to a file system
+                folder tree. Corpora, subcorpora and documents can all receive <link
+                    xlink:href="#metadata"><classname>metadata</classname></link> annotations. </para>
+            <para>All documents must contain at least one source of <link
+                xlink:href="#primary_text_data"><classname>primary text data</classname></link>,
+            possibly more in cases of <link xlink:href="#parallel_corpora">parallel corpora</link>
+            or <link xlink:href="#dialogue_data">dialogue data</link>, and at least one <link
+                xlink:href="#tokenization"><classname>tokenization</classname></link> of this data.
+            Tokenized data may be annotated directly using features called <link xlink:href="#feat"
+                    ><classname>feat</classname></link>, such as parts-of-speech, lemmatization,
+            etc. Further hierarchical structures can be built on top of tokens using flat span
+            objects called <link xlink:href="#mark"><classname>mark</classname></link> (i.e.
+                <firstterm>markables</firstterm>) or hierarchically nestable objects called <link
+                xlink:href="#struct"><classname>struct</classname></link> (i.e.
+                <firstterm>structures</firstterm>), which may also be annotated with
+                <classname>feat</classname> objects. The type of node or annotation (part-of-speech,
+            phrase-category etc.) is given by the type attribute of each set of nodes or
+            annotations. </para>
+        <para>Beyond the edges resulting from the construction of hierarchies through structs,
+            further non-hierarchical edges may be defined between any two nodes in a document using
+            pointing relations. Both edges connecting structs to tokens or other structs and
+            pointing relations may be annotated using feats and given a type. All objects and
+            annotations below the document level may carry a PAULA <link xlink:href="#namespaces"
+                    ><classname>namespace</classname></link> bundling relevant annotation layers
+            which belong together under a common identifier (note that these are not identical with
+            XML namespaces). The following two figures give an overview of this general data model
+            for the corpus/document structure and the structure of objects within them. For details
+            and examples of the individual model elements and their specific XML serialization see
+            the next chapters.</para>
+       
+        <para>
+            
+            <figure xml:id="Figure_corpus_model">
+                <title>Datamodel for (sub)corpus and document tree</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="figures/paula_corpusStructure.svg" scale="50"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <figure xml:id="Figure_doc_model">
+                <title>Datamodel for document-internal objects</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="figures/paula_documentStructure.svg" scale="30"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+        </para>
+        </chapter>
+        <chapter xml:id="corpus_structure">
+        <title>Corpus structure</title>
+        <sect1 xml:id="corpus">
+            <title>Corpus and subcorpus</title>
+            <para>In PAULA a corpus structure is defined by means of a file system folder structure.
+                The name of the corpus is determined by the name of the top level directory of the
+                folder structure. The top level directory may contain further directories. If these
+                directories contain subdirectories themselves, then they are considered to be
+                subcorpora. Subcorpora are generally used to provide meaningful subdivisions of a
+                corpus, e.g. based on genre, period, language etc. These may be accompanied by
+                appropriate <link xlink:href="#metadata">metadata</link>.</para>
+            <para>Each subcorpus carries the name of its directory. It is possible, but not
+                recommended, to repeat subcorpus names at different levels of nesting. A directory
+                cannot contain two identically named subdirectories, and therefore it is impossible
+                for two sibling subcorpora to have the same name. Under *NIX systems it is possible
+                to have directories with identical names except for capitalization. This is not
+                recommended for compatibility with other operating systems. In addition to
+                directories, a top level corpus or a subcorpus may contain an
+                    <classname>annoSet</classname> file, which lists the set of subfolders in the
+                same directory (see <link xlink:href="#annoset">annoSets</link>). This is not
+                required unless the corpus or subcorpus should receive metadata annotations (see
+                    <link xlink:href="#metadata">metadata</link>).</para>
+            <para>
+                <figure xml:id="Figure_paula_dir_struct">
+                    <title>Directory structure for a PAULA corpus</title>
+                    <programlisting><![CDATA[
++-- mycorpus/
+¦   +-- subcorpus1/
+¦   ¦   +-- doc1/
+¦   ¦   +-- doc2/
+¦   ¦   +-- doc3/
+¦   +-- subcorpus2/
+¦   ¦   +-- doc4/
+¦   ¦   +-- doc5/
+¦   ¦   +-- ...
+¦   +-- subcorpus3/
+... ...
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+            <para> A subdirectory which contains no further directories is a document. Every corpus
+                and subcorpus must contain at least one document (possibly nested within a lower
+                level folder), empty corpora or subcorpora are not allowed. The minimal structure
+                for a PAULA corpus is therefore a corpus folder containing a document folder, which
+                must contain the minimal document structure described under <link
+                    xlink:href="#document">documents</link>.</para>
+        </sect1>
+        <sect1 xml:id="document">
+            <title>Documents</title>
+            <para>A PAULA <classname>document</classname> is a terminal directory within the
+                directoy structure of the PAULA <classname><link xlink:href="#corpus"
+                    >corpus</link></classname>, i.e. it is a folder that contains no subfolders.
+                Usually documents corresponds to coherent texts (e.g. an article), but in some
+                contexts other divisions may be sensible (e.g. chapters of a book as individual
+                documents). The primary consideration is whether or not annotations need to cross
+                boundaries between segments of the annotated texts, since annotation nodes and edges
+                can only exist within a document. It is not possible for an element in one document
+                to refer to or include an element from another document.</para>
+            <para>The name of the document is determined by the name of the folder representing it.
+                A document must contain at least a <classname><link xlink:href="#primary_text_data"
+                        >primary text data</link></classname> file, a <link
+                    xlink:href="#tokenization"><classname>tokenization</classname></link>, an
+                        <classname><link xlink:href="#annoset">annoSet</link></classname> file and
+                the relevant <link xlink:href="#DTD">DTDs</link> used in the document, unless these
+                are stored in a separate folder and refered to with appropriate relative paths. If
+                the document contains no <link xlink:href="#tokenization">tokenization</link> or
+                other annotations, then these will be <filename>paula_text.dtd</filename>,
+                    <filename>paula_struct.dtd</filename> and <filename>paula_header.dtd</filename>.
+                Typically, however, a document almost always contains a tokenization of the primary
+                text data and some annotations, meaning at least <filename>paula_mark.dtd</filename>
+                and <filename>paula_feat.dtd</filename> (see <link xlink:href="#DTD">DTDs</link> for
+                more information). It is generally advisable to contain all DTDs used in a corpus in
+                every document, as redundant DTDs do not disrupt processing or validation. </para>
+            <para>By convention, all XML files within a document (i.e. all files except DTDs) share
+                the document name as part of the file name, which appears first except for possible
+                    <link xlink:href="#namespaces">namespaces</link>, and is followed by annotation
+                layer-specific elements. For more information about recommended naming practices see
+                    <link xlink:href="#naming_conventions">naming conventions</link>.</para>
+        </sect1>
+        <sect1 xml:id="annoset">
+            <title>AnnoSets</title>
+            <para>Each PAULA <classname><link xlink:href="#document">document</link></classname>
+                must contain an <classname>annoSet</classname> file which describes the set of
+                annotations contained in the document. The <classname>annoSet</classname> conforms
+                with the <link xlink:href="#DTD">DTD</link>
+                <filename>paula_struct.dtd</filename> and contains a
+                    <classname>structList</classname> element which contains one or more
+                    <classname>struct</classname> elements, each of which contains one or more
+                    <classname>rel</classname> elements (these are the same elements used for the
+                description of <link xlink:href="#struct">hierarchical annotations</link> as well).
+                Every XML file within the document directory (but not DTDs and not the
+                    <classname>annoSet</classname> file itself) must be the
+                    <classname>@xlink:href</classname> attribute of some <classname>rel</classname>
+                in the <classname>annoSet</classname>, including the special
+                    <classname>annoFeat</classname> file if it has been included (see <link
+                    xlink:href="#annofeat">Annofeats</link>). There are therefore as many
+                    <classname>rel</classname> elements in the <classname>annoSet</classname> as
+                there are XML files in the directory, minus one (since the
+                    <classname>annoSet</classname> itself is not referenced). Different structs can
+                be used to group together files belonging to one logical annotation layer, such as
+                the <classname><link xlink:href="#primary_text_data">primary text
+                    data</link></classname> and its <classname><link xlink:href="#tokenization"
+                        >tokenization</link></classname>, or related annotations such as part of
+                speech and lemma. The following example shows some typical groupings following the
+                PAULA <link xlink:href="#naming_conventions">naming conventions</link>.</para>
+            <para>
+                <example xml:id="Example_annoset">
+                    <title>An <classname>annoSet</classname> file for doc1 in mycorpus</title>
+                    <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_struct.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc1.anno" />
+ 
+<structList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="annoSet">
+  <struct id="anno_1">
+   <rel id="rel_1" xlink:href="mycorpus.doc1.anno_feat.xml" />
+  </struct>
+  <struct id="anno_2">
+   <rel id="rel_2" xlink:href="mycorpus.doc1.text.xml" />
+   <rel id="rel_3" xlink:href="mycorpus.doc1.tok.xml" />
+  </struct>
+  <struct id="anno_3">
+   <rel id="rel_4" xlink:href="mycorpus.doc1.tok_pos.xml" />
+   <rel id="rel_5" xlink:href="mycorpus.doc1.tok_lemma.xml" />
+  </struct>
+  <struct id="anno_4">
+   <rel id="rel_6" xlink:href="mycorpus.doc1.phrase.xml" />
+   <rel id="rel_7" xlink:href="mycorpus.doc1.phrase_cat.xml" />
+   <rel id="rel_8" xlink:href="mycorpus.doc1.phrase_func.xml" />
+  </struct>
+ </structList>
+
+</paula>]]></programlisting>
+                </example>
+            </para>
+            <para>Annotation layers within the same struct are often interdependent, such that
+                removing one of the files from the document may disrupt the annotation graph shared
+                with the others. Also note that since <link xlink:href="#namespaces"
+                    >namespaces</link> are also used to group related annotation layers together,
+                often (but not necessarily always) layers with the same namespace will also be in
+                the same <classname>struct</classname> in the <classname>annoSet</classname>.</para>
+            <para>A second function of annoSets is to list the contents of corpora or subcorpora.
+                AnnoSets within subcorpus or corpus folders are optional, though if they are
+                missing, the contents of the folder cannot be validated against a list. AnnoSets in
+                corpora or subcorpora are only required if the corpus or subcorpus should receive
+                metadata annotations, in which case an <classname>annoSet</classname> to which the
+                metadata features must point is required (see <link xlink:href="#metadata"
+                    >metadata</link> for more information). An <classname>annoSet</classname> for a
+                subcorpus or corpus can look like the following example.</para>
+            <para>
+                <example xml:id="Example_annoset_corpus">
+                    <title>An <classname>annoSet</classname> file for the corpus
+                            <filename>mycorpus</filename> with three documents</title>
+                    <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_struct.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.anno" />
+ 
+<structList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="annoSet">
+  <struct id="anno_1">
+   <rel id="rel_1" xlink:href="doc1/" />
+   <rel id="rel_2" xlink:href="doc2/" />
+   <rel id="rel_3" xlink:href="doc3/" />
+  </struct>
+ </structList>
+
+</paula>]]></programlisting>
+                </example>
+            </para>
+            <para>Corpus or subcorpus annoSets generally place all child subcorpora or documents
+                within one <classname>struct</classname> element as in the example above, though it
+                is not prohibited to group some items into different <classname>struct</classname>
+                elements. It is also possible to mix subcorpora and documents within the same corpus
+                or subcorpus level folder. There is no difference in notation and all immediate
+                subfolders in the file system are simply listed: <filename>subcorpus1/</filename>,
+                    <filename>doc1/</filename> etc.</para>
+        </sect1>
+    </chapter>
+        <chapter xml:id="required_files">
+        <title>Required files and DTDs</title>
+            <sect1><title>Minimal document structure</title>
+        <para> Every document within a PAULA corpus requires at least one instance of each of the
+            following three XML file types: a <classname><link xlink:href="#primary_text_data"
+                    >primary text data</link></classname> file, a <link xlink:href="#tokenization"
+                    ><classname>tokenization</classname></link>, and an <classname><link
+                    xlink:href="#annoset">annoSet</link></classname> file. These accordingly define
+            the raw data, a basic segmentation of the data into minimal units and a list of the
+            files in the directory (see documentation of the individual file types for
+            details).</para>
+        <para>Additionally, the relevant DTDs must be added which define these file types. At a
+                minimum, the DTDs necessary for the required files above are: </para>
+        <para><itemizedlist>
+                <listitem>
+                    <para><filename>paula_header.dtd</filename></para>
+                </listitem>
+                <listitem>
+                    <para><filename>paula_struct.dtd</filename></para>
+                </listitem>
+                <listitem>
+                    <para><filename>paula_mark.dtd</filename></para>
+                </listitem>
+                <listitem>
+                    <para><filename>paula_text.dtd</filename></para>
+                </listitem>
+            </itemizedlist>
+        </para>
+                <para>The DTDs may be repeated in each document to simplify moving and adding documents at any point in the corpus strucutre (as in the examples in this documentation), 
+                    or else DTDs can be saved in one folder (e.g. the corpus root) and refered to from each document using a relative path.</para>
+            </sect1>
+                <sect1 xml:id="DTD"><title>Additional DTDs</title>
+                    <para>Beyond the DTDs in the previous section, if the document contains any
+                        <classname><link xlink:href="#feat">feat</link></classname> annotations or
+                an <classname><link xlink:href="#annofeat">annoFeat</link></classname> file, it will
+                require the DTD <filename>paula_feat.dtd</filename>, and if it contains <link
+                    xlink:href="#pointing_relations">pointing relations</link> using the
+                    <classname>rel</classname> element, the file <filename>paula_rel.dtd</filename>
+                will also be necessary. A further DTD, <filename>paula_multiFeat.dtd</filename>, is
+                needed if multiple feat annotations should be defined in one XML file, see <link
+                    xlink:href="#multifeats">multifeats</link>.</para>
+            <para>Usually the necessary DTDs are repeatedly included in every document folder for
+                validation purposes, though it is possible to include them in only one folder and
+                refer to them from each document using a relative path (cf. the previous section).
+                It is not necessary to include <filename>paula_rel.dtd</filename> or
+                    <filename>paula_feat.dtd</filename> for corpora or documents that do not contain
+                pointing relations, even if some other documents in the corpus do, though it may be
+                recommended to have the same DTDs or DTD references in all folders in case pointing
+                relations or feature annotations are added to further corpus documents later on. The
+                following full list of DTDs may therefore be included in every document:</para>
+                    <para><itemizedlist>
+                        <listitem>
+                            <para><filename>paula_header.dtd</filename></para>
+                        </listitem>
+                        <listitem>
+                            <para><filename>paula_struct.dtd</filename></para>
+                        </listitem>
+                        <listitem>
+                            <para><filename>paula_mark.dtd</filename></para>
+                        </listitem>
+                        <listitem>
+                        <para><filename>paula_text.dtd</filename></para>
+                    </listitem>
+                    <listitem>
+                        <para><filename>paula_feat.dtd</filename></para>
+                    </listitem>
+                    <listitem>
+                        <para><filename>paula_rel.dtd</filename></para>
+                    </listitem>
+                    <listitem>
+                        <para><filename>paula_multiFeat.dtd</filename></para>
+                    </listitem>
+                    </itemizedlist>
+                    </para>
+            </sect1>
+    </chapter>
+        
+        <chapter xml:id="metadata">
+            <title>Metadata</title>
+            <para>Metadata encompasses annotations that apply to an entire object in the corpus
+            structure, i.e. to a corpus, subcorpus or document. The metadata does not annotate
+            specific elements within a text, but rather characterizes the entire container object.
+            In PAULA XML metadata is realized in lists of <classname>feat</classname> elements
+            (features), which refer to the <classname>annoSet</classname> of the relevant object
+            (see <link xlink:href="#annoset">annoSets</link>). It is also possible for metadata
+            annotations to carry a <link xlink:href="#namespaces">namespace</link>, just like any
+            other form of annotation. </para>
+            <sect1>
+                <title>Corpus and subcorpus metadata</title>
+                <para>Corpus and subcorpus level metadata can optionally be added to any corpus or
+                subfolder containing an <classname><link xlink:href="#annoset"
+                    >annoSet</link></classname>. It is not possible to add metadata to a folder not
+                containing an <classname>annoSet</classname>. The following example illustrates a
+                metadata annotation for the corpus <filename>mycorpus</filename>.</para>
+                
+                <para>
+                    <example xml:id="Example_corp_meta"><title>Metadata for the corpus <filename>mycorpus</filename></title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.meta_lang"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="lang" xml:base="mycorpus.anno.xml">
+    <feat xlink:href="#anno_1" value="eng"/><!-- English -->
+</featList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>Since the name of the metadata attribute is determined in the the
+                        <classname>@type</classname> attribute of the
+                        <classname>featList</classname> element, it is necessary to define a
+                    separate <classname>feat</classname> file for each metadata annotation, unless
+                        <link xlink:href="#meta_multifeat">multiFeat</link> metadata files are used.
+                    Note also that in this example the feat is only pointing at the
+                        <classname>struct</classname> element "anno_1" from the
+                        <classname>annoSet</classname> file <filename>mycorpus.anno.xml</filename>.
+                    It is also possible to have multiple <classname>feat</classname> elements,
+                    pointing to each one of the <classname>struct</classname> elements in the
+                        <classname>annoSet</classname>. In the current version of PAULA this makes
+                    no difference: once a metadata annotation has been applied to any
+                        <classname>struct</classname> element in the <classname>annoSet</classname>,
+                    it applies to the entire object described by the
+                    <classname>annoSet</classname>.</para>
+            </sect1>
+            <sect1>
+                <title>Document metadata</title>
+                <para>Document metadata works exactly like corpus metadata: it is defined within a
+                        <classname>feat</classname> file which has the annotation name in the
+                        <classname>featList</classname>
+                    <classname>@type</classname> attribute and the value in the
+                        <classname>feat</classname>
+                    <classname>@value</classname> attribute. The <classname>feat</classname> element
+                    should point at a <classname>struct</classname> element from the document's
+                            <classname><link xlink:href="#annoset">annoSet</link></classname>. It is
+                    possible but not necessary to annotate all <classname>struct</classname>
+                    elements in the <classname>annoSet</classname>. The following example
+                    demonstrates this.</para>
+                <para>
+                    <example xml:id="Example_doc_meta"><title>Metadata for the document <filename>mycorpus/doc1</filename></title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1.meta_year"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" type="year" 
+xml:base="mycorpus.doc1.anno.xml">
+    <feat xlink:href="#anno_1" value="1999"/><!-- year 1999 -->
+</featList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>If the <classname>annoSet</classname> of doc1 contains several structs names
+                    "anno_1", "anno_2" etc., it is possible to annotate them all using multiple
+                        <classname>feat</classname> elements. This is identical to annotating just
+                    one of the elements, as in the example above: the metadata annotation "year" has
+                    been applied to the document and given the value "1999".</para>
+            </sect1>
+            <sect1 xml:id="meta_multifeat">
+                <title>Using multifeats in metadata</title>
+                <para>When using a large number of metadata annotations, it is sometimes more
+                    convenient to use just one XML document to define all meta annotations. This is
+                    made possible by using <classname>multiFeat</classname> files. The following
+                    example illustrates the use of <classname>multiFeat</classname> annotations to
+                    define metadata. For more detailed information on
+                        <classname>multiFeat</classname> annotations see also <link
+                        xlink:href="#multifeats">multiFeat annotations</link>.</para>
+                <para>
+                    <example xml:id="Example_meta_multiFeat"><title>Multiple metadata annotations in one file using <classname>multiFeat</classname> elements.
+                    </title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_multiFeat.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc1.meta_multiFeat"/>
+    
+<multiFeatList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="multiFeat" xml:base="mycorpus.doc1.anno.xml">
+
+    <multiFeat xlink:href="#anno_1"> 
+        <feat name="year" value="2012"/>
+        <feat name="language" value="English"/>
+        <feat name="source_format" value="PAULA XML"/>
+        <!-- ... -->
+    </multiFeat>
+  
+</multiFeatList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+            </sect1>
+            <sect1 xml:id="annofeat">
+                <title>AnnoFeats</title>
+                <para>Each PAULA document may optionally contain an <classname>annoFeat</classname> file
+                    listing the types of all annotation files including <classname>mark</classname>,
+                    <classname>feat</classname>, <classname>struct</classname> and
+                    <classname>rel</classname> files, for validation purposes. Not including an
+                    <classname>annofeat</classname> file means that the annotation layers available
+                    within the files specified in the <classname>annoSet</classname> cannot be
+                    validated, though it may make it easier to update annotation layers dynamically. The
+                    following example illustrates the use of the <classname>annoFeat</classname> file in
+                    reference to <xref linkend="Example_annoset"/> in the previous section. </para>
+                <para>
+                    <example xml:id="Example_annofeat">
+                        <title>An <classname>annoFeat</classname> file for doc1 in mycorpus</title>
+                        <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+
+<paula version="1.1">
+ <header paula_id="mycorpus.doc1.annoFeat" />
+ <featList type="annoFeat" xml:base="mycorpus.doc1.anno.xml" 
+xmlns:xlink="http://www.w3.org/1999/xlink">
+  <feat xlink:href="#rel_1" value="annoFeat" />
+  <feat xlink:href="#rel_2" value="text" />
+  <feat xlink:href="#rel_3" value="tok" />
+  <feat xlink:href="#rel_4" value="pos" />
+  <feat xlink:href="#rel_5" value="lemma" />
+  <feat xlink:href="#rel_6" value="phrase" />
+  <feat xlink:href="#rel_7" value="cat" />
+  <feat xlink:href="#rel_8" value="func" />
+ </featList>
+
+</paula>]]></programlisting>
+                    </example>
+                </para>
+                <para>Note that since the value of the <classname>feat</classname> is a string and not
+                    an ID, it is possible for multiple rels to refer to the same annotation type name.
+                    In order to disambiguate in such cases, it is possible to use <link
+                        xlink:href="#namespaces">namespaces</link>, provided that these have been used
+                    in the corresponding annotation files. The value then takes the form
+                    "namespace:anno_name", e.g. "stts:pos".</para>
+                <para>The <classname>annoFeat</classname> file cannot be used in corpus and subcorpus
+                    directories.</para>
+            </sect1>
+        </chapter>
+        <chapter xml:id="primary_text_data">
+            <title>Primary text data</title>
+            <para>The <classname>primary text data</classname> forms the lowest level of resource
+                representation, corresponding to the minimally analyzed linguistic data: a strech of
+                untokenized plain text. The presence of at least one such file is obligatory in
+                every PAULA <classname><link xlink:href="#document">document</link></classname>.
+                Even if the resource to be annotated originates in spoken data for which a primary
+                recording exists, its textual transcription forms the primary data. A segment of a
+                recording is therefore seen to 'take place' in correspondences with a certain
+                stretch of text (see <link xlink:href="#AV_data">Aligned audio/video files</link>
+                for details). The primary data follows the schema definition in <filename><link
+                        xlink:href="#req_XML">paula_text.dtd</link></filename>, which must be
+                present. The type of the file is "text", and by convention the file name ends with
+                the extension <filename>*.text.xml</filename> and its paula_id is the same as the
+                file name prefix, ending in <code>_text</code> instead of the file extension
+                    <filename>*.text.xml</filename>. <xref linkend="Example_text"/> illustrates a
+                    <classname>primary text data</classname> file called
+                    <filename>mycorpus.doc1.text.xml</filename>.</para>
+            <para>
+                <example xml:id="Example_text"><title>A primary text data file</title><programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_text.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc1_text" type="text"/>
+
+<body>This is an example.</body>
+
+</paula>]]></programlisting></example>
+            </para>
+            <para>A PAULA document can also contain more than one <classname>primary text
+                data</classname> file. There are at least two scenarios where this is recommended,
+            for which the respective sections should be consulted: <link
+                xlink:href="#parallel_corpora">parallel corpora</link> with aligned texts in
+            multiple languages and <link xlink:href="#dialogue_data">dialogue data</link> with
+            multiple simultaneous speakers.</para>
+            <para>As with other PAULA XML files, the first segment of text before a period within
+                the filename of the <classname>primary text data</classname> file can be interpreted
+                as a PAULA <classname><link xlink:href="#namespaces">namespace</link></classname>.
+                In documents with only one such file, this is usually not important, but it is
+                possible to use namespaces to group together text from different languages or
+                speakers in parallel corpora or dialogue data respectively. </para>
+        </chapter>
+        <chapter xml:id="mark">
+            <title>Spans and markables</title>
+            <sect1><title>Introduction to spans and markables</title>
+            <para> In PAULA it is possible to define spans of data for further annotation. Spans are
+                    defined using the <classname>mark</classname> element, which stands for
+                        <firstterm>markable</firstterm> and has two primary functions: defining a
+                            <link xlink:href="#tokenization"
+                        >tokenization</link> for a primary text data and defining a
+                    non-terminal <link xlink:href="#span_anno">annotation span</link> node above the token
+                    level. </para>
+            </sect1>
+            <sect1 xml:id="tokenization"><title>Tokenizations and token markables</title>
+            <para>A <classname>tokenization</classname> forms a minimal level
+                    of analysis that segments a <classname><link xlink:href="#primary_text_data"
+                            >primary text data</link></classname> file into units that can be
+                    annotated further. It is not possible to directly annotate text that is not
+                    tokenized, and every PAULA document must contain at least one
+                        <classname>tokenization</classname>. It is possible to include whitespace
+                    characters within the primary data and then ignore these characters while
+                    tokenizing, so that adjacent tokens are not interrupted by any characters on the
+                    tokenized level. <xref linkend="Example_tok"/> illustrates this
+                    principle.</para>
+                <para>
+                    <example xml:id="Example_tok"><title>Tokenization of the <classname>primary text data</classname> "This is an example."</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_mark.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_tok"/>
+
+<markList xmlns:xlink="http://www.w3.org/1999/xlink" type="tok" 
+xml:base="mycorpus.doc1.text.xml">
+ <mark id="tok_1" 
+  xlink:href="#xpointer(string-range(//body,'',1,4))"/><!-- This -->
+ <mark id="tok_2" 
+  xlink:href="#xpointer(string-range(//body,'',6,2))"/><!-- is -->
+ <mark id="tok_3" 
+  xlink:href="#xpointer(string-range(//body,'',9,2))"/><!-- an -->
+ <mark id="tok_4" 
+  xlink:href="#xpointer(string-range(//body,'',12,7))"/><!--example-->
+ <mark id="tok_5" 
+  xlink:href="#xpointer(string-range(//body,'',19,1))"/><!-- . -->
+</markList>
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>The first token element with the id "tok_1" begins at the first character of
+                the text (the letter "T") and goes covering a total of 4 character: "This".
+                Character 5 is a space, which has not been tokenized. The next token, "tok_2",
+                begins at character 6, covering 2 characters: "is". It is also possible to define
+                tokens with no textual extension, i.e. empty tokens. Such tokens have a string range
+                spanning zero characters. However, they must still have an anchor position within
+                the text. The following example illustrates an empty token in the sentence "he takes
+                people out to fish", where the unrealized subject of "to fish" is tokenized between
+                "out" and "to" with a character span of zero characters.</para>
+                <para>
+                    <example xml:id="Example_tok_fish"><title>Tokenization of the primary data "he takes people out to fish"</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_mark.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc2_tok"/>
+
+<markList xmlns:xlink="http://www.w3.org/1999/xlink" type="tok" 
+xml:base="mycorpus.doc2.text.xml">
+<mark id="tok_1" 
+ xlink:href="#xpointer(string-range(//body,'',1,2))"/><!-- he -->
+<mark id="tok_2" 
+ xlink:href="#xpointer(string-range(//body,'',4,5))"/><!-- takes -->
+<mark id="tok_3" 
+ xlink:href="#xpointer(string-range(//body,'',10,6))"/><!--people-->
+<mark id="tok_4" 
+ xlink:href="#xpointer(string-range(//body,'',17,3))"/><!-- out -->
+<mark id="tok_5" 
+ xlink:href="#xpointer(string-range(//body,'',21,0))"/><!--   -->
+<mark id="tok_6" 
+ xlink:href="#xpointer(string-range(//body,'',22,2))"/><!-- to -->
+<mark id="tok_7" 
+ xlink:href="#xpointer(string-range(//body,'',25,4))"/><!--fish-->
+</markList>
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>Although a PAULA tokenization file is defined with reference to the general
+                    markable DTD <filename><link xlink:href="#DTD">paula_mark.dtd</link></filename>, it is distinguished from other types
+                    of markables, specifically <link xlink:href="#span_anno">annotation
+                        markables</link>, in two ways. Firstly, the <classname>@type</classname>
+                    attribute of the element <classname>markList</classname>, which must be set to
+                    the value <classname>tok</classname>. Secondly, tokenization can only refer to a
+                        <classname>primary text data</classname> file. It is not possible to define
+                    a token pointing to a more complex structure (e.g. another markable or
+                    token).</para>
+                <para>As of PAULA version 1.1 it is possible to have multiple <classname>primary
+                        text data</classname> files, each of which must then be tokenized. Multiple
+                    tokenizations of the same <classname>primary text data</classname> are not
+                    possible in PAULA 1.1, but are planned as part of a future version of PAULA XML. </para>
+            </sect1>
+            <sect1 xml:id="span_anno"><title>Annotation span markables</title>
+                <para>The element <classname>mark</classname> may be used to group together a set of
+                    <link xlink:href="#tokenization">tokens</link> for further annotation. This is
+                usually done in order to annotate a certain feature-value pair which applies to
+                these tokens. Span annotations therefore have the semantics of
+                    <firstterm>attribution</firstterm> within the graph structure, i.e. stating that
+                an area of the data has a certain property or attribute. These attributes are
+                realized in PAULA using <classname><link xlink:href="#feat">feat</link></classname>
+                annotation files, one or more of which can apply to any span defined by a markable.
+                Span markables are defined with reference to the DTD <filename><link
+                        xlink:href="#DTD">paula_mark.dtd</link></filename>. The type of markable
+                being annotated (e.g. a referent or referring expression in a discourse, a chunk for
+                chunking annotation, etc.) is given by the <classname>@type</classname> attribute of
+                the <classname>markList</classname> element, and may be any string value other than
+                "tok" which is reserved for <link xlink:href="#tokenization">tokenizations</link>.
+                Other values are not ruled out by the format, but it is recommended to use types
+                that follow XML element naming conventions, i.e. strings that contain only
+                alphanumeric ascii characters with no spaces and beginning with an alphabetic
+                character.</para>
+                <para>Markables may be continuous or discontinuous, i.e. they may apply to a set of
+                    consecutive tokens or to non-consecutive tokens. The following example
+                    illustrates both types of markables in a single file with the type
+                    "chunk".</para>
+                <para>
+                    <example xml:id="Example_mark"><title>Markables of the type "chunk" above a set of six tokens "I" "'ve "picked" "the" "kids" "up"</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_mark.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_chunk_seg"/>
+
+<markList xmlns:xlink="http://www.w3.org/1999/xlink" type="chunk" 
+xml:base="mycorpus.doc1.tok.xml">
+ <!-- I -->
+ <mark id="chunk_1" xlink:href="#tok_1"/>
+ <!-- 've picked...up -->
+ <mark id="chunk_2" 
+  xlink:href="(#xpointer(id('tok_2')/range-to(id('tok_3'))),#tok_6)"/>
+ <!-- the kids -->
+ <mark id="chunk_3" 
+  xlink:href="#xpointer(id('tok_3')/range-to(id('tok_4')))"/>
+</markList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>In the example, three markables have been defined which refer to six tokens in
+                the token file <classname>mycorpus.doc1.tok.xml</classname>, as entered in the
+                    <classname>markList</classname> element's <classname>@xml:base</classname>
+                attribute. The first markable, "chunk_1" points to "#tok_1" in the token file which
+                covers the string "I". The third markable, "chunk_3", points to a range of
+                consecutive tokens, from "tok_3" to "tok_4", which covers the words "the kids". The
+                chunk in the middle, "chunk_2", points to a discontinuous set of tokens, namely a
+                range "tok_2" to "tok_3" and a further individual token "tok_6", corresponding to
+                the tokens "'ve picked" and a later token "up". These markables cannot be annotated
+                further within this file (e.g. with the type of chunk as nominal, verbal, etc.).
+                Further annotation of the markables beyond the markable list
+                    <classname>@type</classname> must be added in separate files as <classname><link
+                        xlink:href="#feat">feat</link></classname> annotations.</para>
+                <para>Note that the markable type is set once in the <classname>markList</classname>
+                    element for all markables in the file. To define markables of a different type,
+                    a separate markable file must be generated. Separate files are not required to
+                    have the same segmentations and constitute independent layers of
+                    annotation.</para>
+            </sect1>
+            <sect1 xml:id="feat"><title>Feats</title>
+                <para>The element <classname>feat</classname> and corresponding feat files represent
+                    arbitrary key-value feature annotations which may be applied to a variety of
+                    elements, such as parts of speech or syntactic categories, but also metadata.
+                    They can be applied to mark elements to annotate <link xlink:href="#span_anno"
+                        >spans of tokens</link> or even <link xlink:href="#tokenization"
+                        >tokens</link> directly, but also to <link xlink:href="#struct"
+                            ><classname>struct</classname></link> elements as part of
+                    non-hierarchical annotations or metadata annotation of <classname><link
+                            xlink:href="#annoset">annoSet</link></classname> elements. The following
+                    two examples illustrate feature annotation of spans and tokens. For other uses
+                    see <link xlink:href="#metadata">metadata</link> and <link
+                        xlink:href="#struct_feat">annotating structs</link>. In <xref
+                        linkend="Example_tok_feat"/> a <classname>featList</classname> with the
+                        <classname>@type</classname> "pos" contains six <classname>feat</classname>
+                    elements, each annotating a single token with its part of speech in the
+                        <classname>@value</classname> attribute. </para>
+             <para>
+                <example xml:id="Example_tok_feat"><title>Annotating tokens with <classname>feat</classname> annotations for part of speech</title>
+                    <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_pos"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" type="pos" 
+xml:base="mycorpus.doc1.tok.xml">
+    <feat xlink:href="#tok_1" value="PP"/><!-- I -->
+    <feat xlink:href="#tok_2" value="VBP"/><!-- 've -->
+    <feat xlink:href="#tok_3" value="VBN"/><!-- picked -->
+    <feat xlink:href="#tok_4" value="DT"/><!-- the -->
+    <feat xlink:href="#tok_5" value="NNS"/><!-- kids -->
+    <feat xlink:href="#tok_6" value="RP"/><!-- up -->
+</featList>
+
+</paula>
+]]></programlisting>
+                </example>
+             </para>
+                
+                <para>It is also possible to annotate more than one token at a time by using <link
+                        xlink:href="#span_anno">annotation span markables</link>, which cover one or
+                    more tokens each. In this case the features do not refer to a token file, but to
+                    a markable file which refers to some tokens in itself. The following example
+                    illustrates the annotation of such spans, which works in much the same way as
+                    the annotation of tokens.</para>
+                <para>
+                    <example xml:id="Example_mark_feat"><title>Annotating spans from a markable file with <classname>feat</classname> annotations for chunk
+                            type</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_chunk_seg_chunk_type"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="chunk_type" xml:base="mycorpus.doc1.chunk_seg.xml">
+    <feat xlink:href="#chunk_1" value="N"/><!-- I -->
+    <feat xlink:href="#chunk_2" value="V"/><!-- 've picked _ up -->
+    <feat xlink:href="#chunk_3" value="N"/><!-- the kids -->
+</featList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>In this case, three features of the type "chunk_type" have been assigned to
+                    three markables in the file <filename>mycorpus.doc1.chunk_seg.xml</filename>.
+                    The "chunk_type" of the first markable is given the value "N". The second
+                    markable receives the "chunk_type" "V" and the third is "N" again. Note that the
+                    tokens covered by the respective markables are not defined here, though comments
+                    to the right of each element can help keep track of the text covered by each
+                    annotation. The actual tokens covered by each markable are defined in the
+                    separate file <filename>mycorpus.doc1.chunk_seg.xml</filename>. There is also no
+                    necessary connection between the type of feature and the type of markable,
+                    though in many cases it makes sense to give them similar names, e.g. markables
+                    called "chunk" and an annotation "chunk_type" (see also <link
+                        xlink:href="#naming_conventions">naming conventions</link>).</para>
+                
+            </sect1>
+            <sect1><title xml:id="multifeats">Multifeats</title>
+                <para> In cases where multiple annotations always apply to the same nodes, it may be
+                    more economic to specify multiple, usually related annotations in the same file.
+                    This is made possible by the use of <classname>multiFeat</classname> files,
+                    together with the associated <filename>paula_multiFeat.dtd</filename>. Each
+                    multiFeat contains multiple feat annotations applying to the element specified
+                    in the <classname>@xlink:href</classname> attribute of the
+                        <classname>multiFeat</classname> element. Since the
+                        <classname>multiFeat</classname> itself is not an actual annotation, but a
+                    container for other annotations, the <classname>multiFeatList</classname>
+                    element is conventionally given the type "multiFeat". The example below
+                    illustrates the use of multiFeat annotations. </para>
+                <para>
+                    <example xml:id="Example_multiFeat"><title>Annotating multiple annotations using <classname>multiFeat</classname> elements.
+                        </title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_multiFeat.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc1.tok_multiFeat"/>
+    
+<multiFeatList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="multiFeat" xml:base="mycorpus.doc1.tok.xml">
+
+    <multiFeat xlink:href="#tok_1"> <!-- I -->
+        <feat name="pos" value="PPER"/>
+        <feat name="lemma" value="I"/>
+    </multiFeat>
+    <multiFeat xlink:href="#tok_2"> <!-- 've -->
+        <feat name="pos" value="VBP"/> 
+        <feat name="lemma" value="have"/>
+    </multiFeat>
+    <!-- ... -->
+   
+</multiFeatList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para> Note that there is no difference from the data model point of view between
+                    the use of multiple <classname>feat</classname> files or one
+                        <classname>multiFeat</classname> file specifying the same annotation types.
+                    Note also that when using <link xlink:href="#namespaces">namespaces</link>, all
+                    annotations in a <classname>multiFeat</classname> have the same namespace,
+                    determined by the <classname>multiFeat</classname> file name. While it is
+                    possible to have different annotation in different
+                        <classname>multiFeat</classname> elements in the same file, it is
+                    recommended to avoid this, as it can quickly become confusing. The use of
+                        <classname>multiFeat</classname> annotations can also make it potentially
+                    difficult to add, remove and edit annotations after the fact, since separate
+                    annotation layers are mixed in one XML file.</para>
+                
+            </sect1>
+            
+            
+        </chapter>
+        <chapter>
+            <title>Hierarchical structures</title>
+            <para>Hierarchical structures are used in PAULA for two different purposes: for the
+                creation of hierarchically nested annotation graphs (e.g. syntax trees, rhetorical
+                structure annotation, hierarchical topological fields) and for the definition of
+                structured <classname>annoSet</classname> objects (see <link xlink:href="#annoset"
+                    >annoSets</link>). Hierarchical structures express the graph semantic property
+                that a parent node <firstterm>consists of</firstterm> its children, or in reverse,
+                that children nodes <firstterm>constitute</firstterm> their parent nodes. The
+                semantics of hierarchical edges is also called <firstterm>dominance</firstterm> (a
+                parent node <firstterm>dominates</firstterm> a child node), and they are
+                consequently known as <firstterm>dominance edges</firstterm> as well. This chapter
+                describes hierarchical annotation graphs. For non-hierarchical annotations see also
+                    <link xlink:href="#mark">spans and markables</link>. </para>
+            <sect1 xml:id="struct"><title>Structs</title>
+                <para>To form hierarchically nested (i.e. recursive) non-terminal nodes above the
+                    token level, the <classname>struct</classname> element should be used.
+                        <firstterm>Directed acyclic graphs</firstterm> (DAGs) of struct elements may
+                    be defined in struct files according to <filename><link xlink:href="#DTD"
+                            >paula_struct.dtd</link></filename>. The <classname>struct</classname>
+                    element is embedded within a <classname>structList</classname> which determines
+                    the <classname>@type</classname> for all structs in the file. It has only one
+                    attribute, an <classname>@id</classname> which allows it to become the target of
+                    incoming edges. Outgoing edges are annotated using the child element
+                        <classname>rel</classname>, which has its own <classname>@type</classname>
+                    (the type of edge) and an attribute <classname>@xlink:href</classname>
+                    determining the target's id, as well as its own <classname>@id</classname>
+                    attribute for further annotation (see annotating structs and rels). The
+                    following example illustrates a simple syntax tree for the sentence "he ". The
+                    correpsonding syntax tree is also visualized in <xref linkend="Figure_fish_tree"
+                    />. </para>
+                
+                <para>
+                    <example xml:id="Example_struct"><title>Constructing a hierarchical syntax tree with <classname>struct</classname> elements
+                        type</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_struct.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc2_phrase"/>
+
+<structList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="phrase">
+<struct id="phrase_1"> <!-- NP -->
+ <!-- he -->
+ <rel id="rel_1" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_1"/>
+</struct>
+<struct id="phrase_2"> <!-- VP -->
+ <!-- takes -->
+ <rel id="rel_2" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_2"/>
+ <rel id="rel_3" type="edge" xlink:href="#phrase_3"/>
+ <rel id="rel_4" type="edge" xlink:href="#phrase_4"/>
+ <rel id="rel_5" type="edge" xlink:href="#phrase_5"/>
+</struct>
+<struct id="phrase_3"> <!-- NP -->
+ <!-- people -->
+ <rel id="rel_6" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_3"/>
+ <!-- _ -->
+ <rel id="rel_7" type="secedge" xlink:href="mycorpus.doc2.tok.xml#tok_5"/>
+</struct>
+<struct id="phrase_4"> <!-- PRT -->
+ <!-- out -->
+ <rel id="rel_8" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_4"/>
+</struct>
+<struct id="phrase_5"> <!-- S -->
+ <rel id="rel_9" type="edge" xlink:href="#phrase_6"/>
+ <rel id="rel_10" type="edge" xlink:href="#phrase_7"/>
+</struct>
+<struct id="phrase_6"> <!-- NP -->
+ <!-- _ -->
+ <rel id="rel_11" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_5"/>
+</struct>
+<struct id="phrase_7"> <!-- VP -->
+ <!-- to -->
+ <rel id="rel_12" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_6"/>
+ <rel id="rel_13" type="edge" xlink:href="#phrase_8"/>
+</struct>
+<struct id="phrase_8"> <!-- VP -->
+ <!-- fish -->
+ <rel id="rel_14" type="edge" xlink:href="mycorpus.doc2.tok.xml#tok_7"/>
+</struct>
+<struct id="phrase_9"> <!-- S -->
+ <rel id="rel_15" type="edge" xlink:href="#phrase_1"/> 
+ <rel id="rel_16" type="edge" xlink:href="#phrase_2"/> 
+</struct>
+<struct id="phrase_10"> <!-- TOP -->
+ <rel id="rel_17" type="edge" xlink:href="#phrase_9"/> 
+</struct>
+</structList>
+
+</paula>
+
+]]></programlisting>
+                    </example>
+                </para>
+                <para>
+                    
+                    <figure xml:id="Figure_fish_tree">
+                        <title>Syntax tree for "he takes people out to fish"</title>
+                        <mediaobject>
+                            <imageobject>
+                                <imagedata fileref="figures/fish_tree.png" scale="60"/>
+                            </imageobject>
+                        </mediaobject>
+                    </figure>
+                </para>
+                
+                <para>In this example, the individual nodes in the tree from the figure above are
+                    represented by <classname>struct</classname> elements. Each
+                        <classname>struct</classname> element contains <classname>rel</classname>
+                    elements which define edge leading to its children. Thus "phrase_1" directly
+                    dominates a token "tok_1", corresponding to the word "he". Note that, since the
+                    tokens are in a separate file, references to the tokens give a full href
+                    attribute with the token file name: mycorpus.doc2.tok.xml#tok_1. Phrase nodes
+                    dominating other phrase nodes within the same file do not require any prefix:
+                    "phrase_9" dominates "#phrase_5" directly. Most edges in the tree have been
+                    given the edge <classname>@type</classname> "edge", but one edge, by which the
+                    NP above "people" (marked in red in the figure above) indirectly dominates an
+                    empty token between "out" and "to" (marked in green) with a different
+                        <classname>@type</classname>: "secedge" (a 'secondary' edge). There is no
+                    limit to the amount of edge types used in a document, but XML naming conventions
+                    should be followed in giving type names that are ascii alphanumeric, without
+                    spaces and beginning with an alphabetic character (see <link
+                        xlink:href="#naming_conventions">naming conventions</link>). The node labels
+                    ("NP", "VP") and the edge labels ("SBJ", "PRP") are not defined within the
+                        <classname>struct</classname> file, but are given as separate annotation
+                    files: see <link xlink:href="#struct_feat">annotating structs and
+                    rels</link>.</para>
+            </sect1>
+            <sect1 xml:id="struct_feat"><title>Annotating structs and rels</title>
+                <para>Hierarchical graphs made of <classname>struct</classname> and
+                        <classname>rel</classname> elements may be further annotated using
+                        <classname>feat</classname> elements, much like annotation <link
+                        xlink:href="#span_anno">spans</link>. To annotate
+                        <classname>struct</classname> nodes, use a <classname>feat</classname> file
+                    pointing to the nodes and give the annotation name in the
+                        <classname>@type</classname> attribute. The following example illustrates
+                    the phrase annotations for the tree in <xref linkend="Example_struct"/> in the previous section.</para>
+                <para>
+                    <example xml:id="Example_struct_feat"><title>Annotating nodes from a <classname>struct</classname> file with <classname>feat</classname>
+                        annotations for phrase category: "cat"</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc2_phrase_cat"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" type="cat" 
+xml:base="mycorpus.doc2.phrase.xml">
+    <feat xlink:href="#phrase_1" value="NP"/><!-- he -->
+    <feat xlink:href="#phrase_2" value="VP"/><!-- takes -->
+    <feat xlink:href="#phrase_3" value="NP"/><!-- people _ -->
+    <feat xlink:href="#phrase_4" value="PRT"/><!-- out -->
+    <feat xlink:href="#phrase_5" value="S"/><!-- _ to fish -->
+    <feat xlink:href="#phrase_6" value="NP"/><!-- _ -->
+    <feat xlink:href="#phrase_7" value="VP"/><!-- to fish -->
+    <feat xlink:href="#phrase_8" value="VP"/><!-- fish -->
+    <!-- he takes people out _ to fish -->
+    <feat xlink:href="#phrase_9" value="S"/>
+    <!-- he takes people out _ to fish -->
+    <feat xlink:href="#phrase_10" value="TOP"/>
+</featList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>The annotation name is set as "cat" and it applies to the elements "phrase_1"
+                    to "phrase_10" in the xml:base file, which contains the phrase nodes. For
+                    conventions how to name the <classname>@paula_id</classname> and XML files, see
+                        <link xlink:href="#naming_conventions">naming conventions</link>.</para>
+                <para>Annotating edges works in a similar way, except that
+                        <classname>rel</classname> elements are references instead of
+                        <classname>struct</classname> elements. It is possible to annotate edges of
+                    multiple types in the same XML file, as long as the name of the annotation being
+                    applied to them is identical. The following example illustrates this using the
+                    edges from <xref linkend="Example_struct"/> in the preivous section (note that
+                    "rel_7" had the type "secedge" while the others had "edge", and also that not
+                    all edges have been annotated, which is fine).</para>
+                <para>
+                    <example xml:id="Example_rel_feat"><title>Annotating edges from a <classname>struct</classname> file with <classname>feat</classname>
+                        annotations for phrase function: "func"</title>
+                        <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc2_phrase_func"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" type="func" 
+xml:base="mycorpus.doc2.phrase.xml">
+    <feat xlink:href="#rel_5" value="PRP"/><!-- _ to fish -->
+    <feat xlink:href="#rel_9" value="SBJ"/><!-- _ -->
+    <feat xlink:href="#rel_11" value="NONE"/><!-- _ -->
+    <feat xlink:href="#rel_15" value="SBJ"/><!-- he -->
+</featList>
+
+</paula>
+]]></programlisting>
+                    </example>
+                </para>
+                <para>Just as with markables, it is also possible to specify multiple annotations
+                    for the same nodes in one XML document using multiFeat files (see <link
+                        xlink:href="#multifeats">multiFeats</link> for details).</para>
+            </sect1>
+        </chapter>
+        <chapter xml:id="pointing_relations">
+            <title>Pointing relations</title>
+            <para>Pointing relations are ahierarchical edges between any two annotation node
+                elements, that is between any combination of <classname><link
+                        xlink:href="#tokenization">tok</link></classname>, <classname><link
+                        xlink:href="#mark">mark</link></classname> or <classname><link
+                        xlink:href="#struct">struct</link></classname>. Unlike <link
+                    xlink:href="#struct">hierarchical edges</link>, pointing relations do not
+                express 'dominance' semantics, meaning that the source of the edge is not understood
+                to 'consist of' the target of the edge. The edge merely marks a relationship between
+                two nodes. For this reason, pointing relations are useful in expressing such links
+                as coreference (e.g. a link between anaphor and antecedent) and syntactic
+                dependencies. Pointing relations are represented using <classname>rel</classname>
+                elements in rel files, and obey the definition in <filename>paula_rel.dtd</filename>
+                (see <link xlink:href="#DTD">DTDs</link>). The following example illustrates rel
+                edges between tokens defined in the file <filename>mycorpus.doc1.tok.xml</filename>,
+                but the sources and targets of the edges can also be any
+                    <classname>struct</classname> or <classname>mark</classname> within a
+                document.</para>
+            <para>
+                <example xml:id="Example_PR"><title>Pointing relations between token nodes to annotate dependencies of type "dep"</title>
+                    <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_rel.dtd">
+
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_dep"/>
+
+<relList xmlns:xlink="http://www.w3.org/1999/xlink" type="dep" 
+xml:base="mycorpus.doc1.tok.xml">
+    <!-- I - 've -->
+    <rel id="rel_1" xlink:href="#tok_1" target="#tok_2"/> 
+    <!-- 've - picked -->
+    <rel id="rel_2" xlink:href="#tok_3" target="#tok_2"/> 
+    <!-- the - kids -->
+    <rel id="rel_3" xlink:href="#tok_4" target="#tok_5"/> 
+    <!-- picked - kids -->
+    <rel id="rel_4" xlink:href="#tok_5" target="#tok_3"/> 
+    <!-- picked - up -->
+    <rel id="rel_5" xlink:href="#tok_6" target="#tok_3"/> 
+</relList>
+
+</paula>
+]]></programlisting>
+                </example>
+            </para>
+            <para> The <classname>rel</classname> file only defines the edges and the
+                    <classname>@type</classname> of the <classname>relList</classname>, in this case
+                "dep". To add an annotation to these edges, for example grammatical functions, a
+                    <classname>feat</classname> file is used, as in the following example:</para>
+            <para>
+                <example xml:id="Example_PR_feat"><title>Annotating the grammatical function "func" for dependency pointing relations</title>
+                    <programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_dep_func"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" type="func" 
+xml:base="mycorpus.doc1.dep.xml">
+    <feat xlink:href="#rel_1" value="SBJ"/><!-- I - 've -->
+    <feat xlink:href="#rel_2" value="VC"/><!-- 've picked -->
+    <feat xlink:href="#rel_3" value="NMOD"/><!-- the - kids -->
+    <feat xlink:href="#rel_4" value="OBJ"/><!-- picked - kids -->
+    <feat xlink:href="#rel_5" value="PRT"/><!-- picked - up -->
+</featList>
+
+</paula>
+]]></programlisting>
+                </example>
+            </para>
+            <para> Each <classname>feat</classname> element points to a <classname>rel</classname>
+                element in the pointing relation file and gives the annotation value in its
+                    <classname>@value</classname> attribute. The name of the annotation, "func", is
+                determined in the @type attribute of the <classname>featList</classname>.</para>
+            <para>Just as with markables, it is also possible to specify multiple annotations
+                for the same pointing relations in one XML document using multiFeat files (see <link
+                    xlink:href="#multifeats">multiFeats</link> for details).</para>
+        </chapter>
+        <chapter xml:id="namespaces"><title>Namespaces</title>
+            <para>Namespaces in PAULA are user-defined strings that may be used to group together
+                XML files belonging to semantically related annotation layers. PAULA namespaces are
+                not XML namespaces, but are signaled through a prefix to the file name which by
+                convention should contain only alphanumeric ASCII characters and should not begin
+                with a number. The end of the prefix is marked by a period. </para>
+            <para>As an example, consider the following <link xlink:href="#document"
+                    >document's</link> directory structure:</para>
+            <para>
+                
+                <figure xml:id="Figure_paula_dir_ns">
+                    <title>Directory structure for a PAULA corpus</title>
+                    
+                    <programlisting><![CDATA[
++-- mycorpus/
+¦   +-- doc1/
+¦   ¦   ¦-- coref.doc1.discourse.xml
+¦   ¦   ¦-- coref.doc1.discourse_anaphoric.xml
+¦   ¦   ¦-- mycorpus.doc1.anno.xml
+¦   ¦   ¦-- mycorpus.doc1.annoFeat.xml
+¦   ¦   ¦-- mycorpus.doc1.text.xml
+¦   ¦   ¦-- mycorpus.doc1.tok.xml
+¦   ¦   ¦-- syntax.mycorpus.doc1.const.xml
+¦   ¦   ¦-- syntax.mycorpus.doc1.const_cat.xml
+¦   ¦   ¦-- syntax.mycorpus.doc1.const_func.xml
+... ... ...
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+            <para> The first two file names being with the prefix "coref". This prefix groups them
+                together into one namespace, which contains semantically related annotations, such
+                as some non-terminal "discourse" nodes, and some annotations or edges defined above
+                these nodes, in this case of the type "anaphoric" (for conventional relations
+                between node and annotation file names, see <link xlink:href="#naming_conventions"
+                    >naming conventions</link>). The last three files begin with "syntax" and belong
+                to the corresponding "syntax" namespace. In this case they represent annotations
+                such as those seen in the examples in <link xlink:href="#struct">Chapter 7</link>:
+                nodes of the type "const", an annotation document of the type "cat" and annother
+                annotation called "func", which represents annotated edges between the nodes.
+                Finally, the files in the middle begin with the corpus name "mycorpus", which is
+                therefore also their namespace. They could also be given a separate namespace (e.g.
+                "general.mycorpus...."), but there is no rule prohibiting use of the corpus name as
+                a namespace: this will usually be the case when following the <link
+                    xlink:href="#naming_conventions">naming conventions</link> if namespaces are not
+                intentionally used (then all annotations have the same namespace: the corpus
+                name).</para>
+            <para>There is no necessary graph-topological connection between annotation layers in
+                the same namespace. Often, nodes and their annotations are grouped together using a
+                namespace in order to signal their interdependence. However it is entirely possible
+                to group any combination of files under one namespace. At present there is no way of
+                assigning multiple namespaces to a single file: only the string before the first
+                period in a file name is evaluated as its namespace. It is recommended to repeat the
+                namespace in the <classname>@paula_id</classname> attribute of each XML file for
+                consistency, but the filename itself is the deciding factor in determining the
+                namespace.</para>
+        </chapter>
+        <chapter><title>Special scenarios</title>
+        <sect1 xml:id="parallel_corpora">
+            <title>Parallel corpora</title>
+            <para>Parallel corpora can be modelled in PAULA XML in a variety of ways that are more
+                    or less appropriate. For instance, an implicit parallel alignment can be
+                    achieved by treating an aligned text as an annotation of a source text (each
+                    word or group of words is annotated with parallel words). However, the explicit
+                    and recommended representation of parallel corpora in PAULA is modelled by
+                    defining multiple <classname><link xlink:href="#primary_text_data">primary text
+                            data</link></classname> files within a <classname><link
+                            xlink:href="#document">document</link></classname> directory, each with
+                    at least one <classname><link xlink:href="#tokenization"
+                        >tokenization</link></classname>. In this way, each text is explicitly made
+                    independent from the others and text level alignment is represented by the
+                    shared document folder. It is recommended to give each text and tokenization a
+                    separate, meaningful <link xlink:href="#namespaces">namespace</link>, such as
+                    the name of the language if dealing with a multilingual parallel corpus.
+                    Alignment between elements within parallel texts, including aligned tokens,
+                        <link xlink:href="#mark">markable spans</link> (e.g. sentences or chunks) or
+                        <link xlink:href="#struct">hierarchical structures</link>, is achieved using
+                        <link xlink:href="#pointing_relations">pointing relations</link>. The
+                    following example illustrates the document structure and an alignment for some
+                    tokens.</para>
+            <para>
+                
+                <figure xml:id="Figure_parallel1">
+                    <title>Directory structure for a document with two parallel texts.</title>
+                    
+                    <programlisting><![CDATA[
++-- mycorpus/
+¦   +-- doc1/
+¦   ¦   ¦-- english.doc1.text.xml
+¦   ¦   ¦-- english.doc1.tok.xml
+¦   ¦   ¦-- german.doc1.text.xml
+¦   ¦   ¦-- german.doc1.tok.xml
+¦   ¦   ¦-- mycorpus.doc1.align.xml
+¦   ¦   ¦-- mycorpus.doc1.anno.xml
+... ... ...
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+            <para>
+                
+                <figure xml:id="Figure_parallel2">
+                    <title>Pointing relations aligning the English text to the German text.</title>
+                    
+                    <programlisting><![CDATA[
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_rel.dtd">
+
+
+<paula version="1.1">
+
+<header paula_id="mycorpus.doc1_align"/>
+
+<relList xmlns:xlink="http://www.w3.org/1999/xlink" type="align">
+    <rel id="rel_1" xlink:href="english.doc1.tok.xml#tok_1" 
+    target="german.doc.tok.xml#tok_1"/>
+    <rel id="rel_1" xlink:href="english.doc1.tok.xml#tok_2" 
+    target="german.doc.tok.xml#tok_3"/>
+    <rel id="rel_1" xlink:href="english.doc1.tok.xml#tok_3" 
+    target="german.doc.tok.xml#tok_2"/>
+</paula>
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+                <para>Note that since pointing relations of the same type may not create a cycle,
+                    bidirectional alignment is only possible if the pointing relation files are
+                    given different types, as in the following example. The two alignment files use
+                    the types "align_g-e" and "align_e-g" for each alignment direction.</para>
+            <para>
+                <figure xml:id="Figure_parallel3">
+                    <title>Directory structure for a document with bidirectional alignment.</title>
+  
+                    
+                    <programlisting><![CDATA[
++-- mycorpus/
+¦   +-- doc1/
+¦   ¦   ¦-- english.doc1.align_e-g.xml
+¦   ¦   ¦-- english.doc1.text.xml
+¦   ¦   ¦-- english.doc1.tok.xml
+¦   ¦   ¦-- german.doc1.align_g-e.xml
+¦   ¦   ¦-- german.doc1.text.xml
+¦   ¦   ¦-- german.doc1.tok.xml
+¦   ¦   ¦-- mycorpus.doc1.anno.xml
+... ... ...
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+        </sect1>
+        <sect1 xml:id="dialogue_data">
+            <title>Dialogue data</title>
+            <para>There are two main ways of representing dialog data in PAULA XML: either each
+                    speaker's text and annotations are modeled as a text in a parallel corpus (see
+                        <link xlink:href="#parallel_corpora">parallel corpora</link>) or else a
+                            <classname><link xlink:href="#primary_text_data">primary textual
+                            data</link></classname> file is created with as many blank characters as
+                    necessary for the representation of all speakers, and this is then used as a
+                    common timeline for the tokens of each speaker. The latter solution is
+                    implemented as follows. Supposing two speakers utter the following two semi
+                    overlapping sentence:</para>
+            <para>
+                
+                <figure xml:id="Figure_dialog_text">
+                    <title>Dialog data to be modelled in PAULA.</title>
+                    
+                    <programlisting><![CDATA[
+Speaker1:   he thinks so
+Speaker2:              I think so too]]>
+              </programlisting>
+                </figure>
+            </para>
+            <para>Speaker2 utters the word "I" at the same time as the "o" is uttered in "so" by
+                Speaker1. In order to model this overlap using only one "text", the
+                <classname>primary textual data</classname> must contain a sufficient amount
+                of characters. The text for Speaker1 is 12 characters long, including spaces,
+                and the text for Speaker2 begins at character 12 of Speaker1 and extends for a
+                further 14 characters. This means we require 25 characters in total (not 26,
+                since there is an overlap of one character). The raw text file can therefore
+                look like this:</para>
+            
+            
+            <para>
+                <example xml:id="Example_text_dialog"><title>A primary text data file</title><programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_text.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc4_text" type="text"/>
+
+<body>1234567890123456789012345</body>
+
+</paula>]]></programlisting></example>
+            </para>
+            <para>The body of the text contains repeating numbers: 1234567890... to make it easier
+                    to count the characters. However it is equally possible to use 25 spaces: the
+                    contents of this dummy text file are not important. In a second step, two
+                    tokenizations of the data are carried out: one for each speaker. The
+                    tokenization for Speaker1 is given in the following example. It is recommended
+                    to give each speaker a separate namespace for easier identifiability. </para>
+            
+            <para>
+                <example xml:id="Example_dialog_tok"><title>Tokenization for Speaker1</title><programlisting><![CDATA[<?xml version="1.0" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_mark.dtd">
+<paula version="1.1">
+                
+<header paula_id="mycorpus.doc4_tok"/>
+                
+<markList xmlns:xlink="http://www.w3.org/1999/xlink" type="tok" 
+xml:base="mycorpus.doc4.text.xml">
+ <!-- he -->
+ <mark id="tok_1" xlink:href="#xpointer(string-range(//body,'',1,2))"/>
+ <!-- thinks -->
+ <mark id="tok_2" xlink:href="#xpointer(string-range(//body,'',4,6))"/>
+ <!-- so -->
+ <mark id="tok_3" xlink:href="#xpointer(string-range(//body,'',11,2))"/>
+</markList>
+
+</paula>
+            ]]></programlisting></example>
+            </para>
+            <para>Annotations for each speaker can then be added by refering to the relevant token file and building hierarchical structures above the tokens.</para>
+        </sect1>
+        <sect1 xml:id="AV_data">
+            <title xml:id="multimodal">Aligned audio/video files</title>
+            <para>Aligned multimedia files, such as audio or video files, can be added to a PAULA
+                    document by placing them in the relevant document directory. In order to specify
+                    which part of a text is represented in the aligned file or files, a
+                            <classname><link xlink:href="#mark">mark</link></classname> element
+                    covering the appropriate span of tokens should be defined and annotated using a
+                            <classname><link xlink:href="#feat">feat</link></classname> which
+                    contains the file name as in the example below. It is possible to annotate the
+                    same <classname>mark</classname> element with multiple multimedia files.</para>
+            <para>
+                
+                <figure xml:id="Figure_AV_seg">
+                    <title><emphasis role="italic">A <classname>mark</classname> file defining the
+                                span of tokens aligned with a multimedia file</emphasis>.</title>
+                    
+                    <programlisting><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_mark.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc1_audioFileSeg"/>
+
+<markList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="audioFileSeg" xml:base="mycorpus.doc1.tok.xml">
+ <!-- audio file span for the first 50 tokens -->
+ <mark id="audioFileSeg_1" 
+  xlink:href="#xpointer(id('tok_1')/range-to(id('tok_50')))"/>
+</markList>
+
+</paula>
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+            <para>
+                
+                <figure xml:id="Figure_AV_feat">
+                    <title>A <classname>feat</classname> file giving the name of the multimedia
+                            file.</title>
+                    
+                    <programlisting><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+
+<paula version="1.1">
+<header paula_id=""mycorpus.doc1_audioFileSeg_audioFile"/>
+
+<featList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="audioFile" xml:base="mycorpus.doc1.audioFileSeg.xml">
+  <!-- wav file -->
+  <feat xlink:href="#audioFileSeg_1" value="file:/./mycorpus.doc1.wav"/>
+</featList>
+
+</paula>
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+        </sect1>
+        </chapter>
+        <chapter xml:id="naming_conventions">
+            <title>Naming conventions</title>
+            <para>
+                <emphasis>General conventions</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>File names in a directory other than the DTDs should ideally contain
+                        their corpus path, or at least the document name, i.e. the name of the
+                        folder they are in. This ensures that files carry unique names that make
+                        them easier to identify. For example, the tokenization file of the document
+                            <filename>doc01/</filename> in the corpus <filename>mycorpus</filename>
+                        might be called <filename>mycorpus.doc01.tok.xml</filename> or
+                            <filename>doc01.tok.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Do not use file or folder names with spaces or non-ascii characters.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Do not use file or folder names that begin with a number or
+                        underscore.</para>
+                    </listitem>
+                    <listitem>
+                        <para>When using <link xlink:href="#namespaces">namespaces</link>, remember
+                            that the string before the first period in the file name is construed as
+                            the namespace. If you do not wish to use namespaces and follow the file
+                            naming conventions given here, the namespace for all of your files will
+                            be the corpus name, since files will always be named:
+                                <filename>mycorpus.*</filename>.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>annoSet, annoFeat, primary text data and tokenization</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>The <classname><link xlink:href="#annoset">annoSet</link></classname>
+                            and, if used, <classname><link xlink:href="#annofeat"
+                                >annoFeat</link></classname> files in a document are conventionally
+                            named using the document path convention above, with the suffixes
+                            anno.xml and anno_feat.xml respectively. For example they can be called:
+                                <filename>mycorpus.doc01.anno.xml</filename> and
+                                <filename>mycorpus.doc01.anno_feat.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If there is only one <classname><link xlink:href="#primary_text_data"
+                                    >primary text data</link></classname> file and one <link
+                                xlink:href="#tokenization"
+                                ><classname>tokenization</classname></link>, they are usually named
+                            similarly, but with the suffixes text and tok:
+                                <filename>mycorpus.doc01.text.xml</filename> and
+                                <filename>mycorpus.doc01.tok.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If there are multiple primary text data files or tokenization, their
+                            distinguishing features may be used as namespaces, e.g. the name of the
+                            language in a <link xlink:href="#parallel_corpora">parallel
+                                corpus</link> documents:
+                                <filename>english.mycorpus.doc01.text.xml</filename> and
+                                <filename>english.mycorpus.doc01.tok.xml</filename>. If the
+                            namespaces are already being used for some other purpose (e.g. names of
+                            speakers when using a parallel corpus architecture for <link
+                                xlink:href="#dialogue_data">dialogue data</link>), suffixes
+                            distinguishing text and token files may be used before "text" and "tok",
+                            as in: <filename>speaker1.mycorpus.doc01.english.text.xml</filename> and
+                                <filename>speaker1.mycorpus.doc01.german.text.xml</filename>, and
+                            the same for <filename>*.tok.xml</filename> files.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>Anntotation span markables and feature annotations</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>By convention, annotation span <link xlink:href="#mark"
+                                >markable</link> files are named using the current document name as
+                            a prefix, followed by an underscore and the markList's type, followed by
+                            "_seg.xml". For example, a markable file that marks text segments
+                            corresponding to discourse referents for further annotation may be named
+                                <filename>mycorpus.doc01.referent_seg.xml</filename>. This tells us
+                            just by looking at the file name that the markable
+                                <classname>@type</classname> attribute in the
+                                <classname>markList</classname> element is "referent".</para>
+                    </listitem>
+                    <listitem>
+                        <para>The above file may may also be put in a <link xlink:href="#namespaces"
+                                >namespace</link> with some other files relevant to discourse
+                            annotation, in which case the files receive a common prefix, e.g. the
+                            file could be named:
+                                <filename>discourse.mycorpus.doc01.referent_seg.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>A feature annotation of the above file giving the referent segment
+                            e.g. an annotation called "type" (marking the referent, say, as a person
+                            or geopolitical entity), will be given a file name identical to that of
+                            the <filename>_seg</filename> file, but with the annotation name
+                            appended after a further underscore:
+                                <filename>discourse.mycorpus.doc01.referent_seg_type.xml</filename>.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>Hierarchical struct nodes and feature annotations</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>Hierarchical <link xlink:href="#struct"
+                                ><classname>struct</classname></link> nodes are placed in files
+                            using the same general conventions with regard to namespaces and
+                            corpus/document path above, and carry a suffix corresponding to the
+                                <classname>@type</classname> attribute in the
+                                <classname>structList</classname> element after an underscore, as
+                            follows. For nodes annotating syntactic constituents of the type "const"
+                            within the <link xlink:href="#namespaces">namespace</link> "syntax" we
+                            may get a file called:
+                                <filename>syntax.mycorpus.doc01.const.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Annotations of struct nodes are given the same name as the
+                            corresponding node file, with a suffix consisting of an underscore and
+                            the annotation's name from the <classname>@type</classname> attribute of
+                            the <classname>featList</classname> element. For example, an annotation
+                            of the above constituent nodes giving the syntactic category called
+                            "cat" should be named:
+                                <filename>syntax.mycorpus.doc01.const_cat.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Feature annotations of edges in the same <classname>struct</classname>
+                            file should be named using the same convention, e.g. a syntactic
+                            function annotation of the type "func" may be called:
+                                <filename>syntax.mycorpus.doc01.const_func.xml</filename>.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>Pointing relations and rel annotations</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para><link xlink:href="#pointing_relations">Pointing relation</link> files
+                            are named using the same conventions as above, with the edge type used
+                            as a suffix after the document name, e.g. a coreference edge file of the
+                            type "coref" in the discourse <link xlink:href="#namespaces"
+                                >namespace</link> should be named:
+                                <filename>discourse.mycorpus.doc01.coref.xml</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Feature annotations of pointing relation edges are given the file name
+                            of the pointing relation file with an underscore and the annotation type
+                            as a suffix. For example, annotating the "coref" edge above with the
+                            annotation "type" (e.g. anaphoric or appositional) results in the file
+                            name:
+                            <filename>discourse.mycorpus.doc01.coref_type.xml</filename>.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>multiFeat annotations</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>A <classname>mutliFeat</classname> file has no single annotation type.
+                            It is therefore usually named using the name of the file to which it
+                            adds annotations, with the suffix "_multiFeat". Therefore the name of a
+                                <classname>multiFeat</classname> file annotation a token file is
+                            e.g. <classname>mycorpus.doc1.tok_multiFeat.xml</classname>, a
+                                <classname>multiFeat</classname> file annotating syntactic
+                            constituents called "const" might be called
+                                <filename>mycorpus.doc1.const_multiFeat.xml</filename>, etc. </para>
+                    </listitem>
+                    <listitem>
+                        <para>For metadata multiFeat annotations, usually the document path and the
+                            suffix "meta_multiFeat" are used, e.g.
+                                <classname>mycorpus.doc1.meta_multiFeat.xml</classname>.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>The paula_id attribute</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>The <classname>@paula_id</classname> attribute of the
+                                <classname>header</classname> element in each filed should be named
+                            like the file name itself without the .xml extension, e.g. the paula_id
+                            of <filename>mycorpus.doc01.tok.xml</filename> might be
+                                <filename>mycorpus.doc01.tok</filename>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If the resulting name has no suffix containing an underscore, it is
+                            possible to replace the final period in the file name with an
+                            underscore, e.g. <filename>mycorpus.doc01_tok</filename>.</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </chapter>
+        <chapter xml:id="versions">
+        <title>Older versions and deprecated components</title>
+        <sect1>
+            <title>Pointing relations in feats</title>
+            <para> Up to PAULA XML version 1.0 it was possible to create <link
+                    xlink:href="#pointing_relations">pointing relations</link> by assigning a
+                feature annotation to a source node with the target node's URI as a feature value
+                (in PAULA 0.9 only) or using the now deprecated <classname>@target</classname>
+                attribute of the feat element (from PAULA 1.0). The use of
+                    <classname>@value</classname> for this purpose is illustrated in the example
+                below.</para>
+            <para>
+                <example xml:id="Example_feat_PR">
+                    <title>A deprecated pointing relation <classname>Feat</classname> file.</title>
+                    <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_feat.dtd">
+
+<paula version="1.1">
+ <header paula_id="mycorpus.doc1_coref" />
+ <featList type="coref" xml:base="mycorpus.doc1.referent_Seg.xml" 
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+  <feat xlink:href="#referent_10" value="#referent_8" />
+ </featList>
+
+</paula>]]></programlisting>
+                </example>
+            </para>
+            <para>The problem with this structure is that it is not unambiguously clear that the
+                annotation signifies a pointing relation, rather than a label annotation that
+                happens to resemble a URI (an annotation with the string value "#referent_8" in the
+                example above). As of PAULA 1.1, <classname>rel</classname> files with their
+                corresponding DTD should be used to define pointing relations, making the
+                identification of source and target nodes unambiguous. It is still possible (though
+                deprecated) to use a <classname>feat</classname> file for this purpose, as long as
+                the pointing relation's target is marked using <classname>@target</classname>
+                instead of <classname>@value</classname>. However, this will not be supported in
+                future versions of the PAULA standard.</para>
+        </sect1>
+        <sect1>
+            <title xml:id="virtual_markables">Virtual markables</title>
+            <para> In PAULA XML version 0.9 it was possible to define "virtual markables" which
+                could span several <link xlink:href="#mark">markables</link>, either in the same
+                markable file or in any number of different markable files applying to the same
+                tokenization. The following example illustrates such a file, where the virtual
+                markable, designated by the <classname>@type</classname> "virtual", refers to two
+                markables within the same file (the path
+                    <filename>mycorpus.doc5.referentSeg.xml</filename> must be specified since
+                    <classname>@xml:base</classname> is set to a separate tokenization file). </para>
+            <para>
+                <figure xml:id="Figure_virtual_marks">
+                    <title><emphasis role="italic">A <classname>mark</classname> file containing a
+                            pseudo-hierarchical markable of the deprecated "virtual"
+                        type</emphasis>.</title>
+                    <programlisting><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE paula SYSTEM "paula_mark.dtd">
+
+<paula version="1.1">
+<header paula_id="mycorpus.doc5_referentSeg"/>
+
+<markList xmlns:xlink="http://www.w3.org/1999/xlink" 
+type="referent" xml:base="mycorpus.doc5.tok.xml">
+ <!-- audio file span for the first 50 tokens -->
+ <mark id="referentSeg_1" 
+  xlink:href="#xpointer(id('tok_1')/range-to(id('tok_2')))"/>
+ <mark id="referentSeg_2" 
+  xlink:href="#xpointer(id('tok_5')/range-to(id('tok_8')))"/>
+ <mark id="referentVirt_1"
+  xlink:href="(mycorpus.doc5.referentSeg.xml#referentSeg_1,
+  mycorpus.doc5.referentSeg.xml#referentSeg_2)" type="virtual"/>
+</markList>
+
+</paula>
+]]>
+                            </programlisting>
+                </figure>
+            </para>
+            <para>Though virtual markables technically appear to be hierarchical structures by
+                pointing at constituent markables, they are interpreted as flat spans which apply to
+                exactly the same tokens as those covered by the constituent markables. Therefore the
+                virtual markable in the example above is the same as a markable applying to tokens
+                1-2 and 5-8. The use of virtual markables has been deprecated and is no longer part
+                of the current PAULA XML standard. Note that it is possible to create discontinuous
+                spans using normal markables, by specifying discontinous ranges of tokens in the
+                    <classname>@xlink:href</classname> attribute.</para>
+        </sect1>
+        <sect1>
+            <title>Synopsis of older PAULA versions and components</title>
+            <para>This section lists distinctive characteristics of the different PAULA XML standard
+                versions to date. </para>
+            <para><emphasis>Version 0.9</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>Use of <link xlink:href="#virtual_markables">virtual markables</link>
+                            is possible.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname>feat</classname> attribute
+                                <classname>@value</classname> to specify <link
+                                xlink:href="#pointing_relations">pointing relation</link> target
+                            nodes is possible/</para>
+                    </listitem>
+                    <listitem>
+                        <para>No support for <link xlink:href="#metadata">metadata</link>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname><link xlink:href="#annofeat"
+                                >annoFeat</link></classname> is mandatory.</para>
+                    </listitem>
+                </itemizedlist>
+                <emphasis>Version 1.0</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>Use of virtual markables is no longer possible.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname>feat</classname> attribute
+                                <classname>@value</classname> or <classname>@target</classname> to
+                            specify pointing relation target nodes is possible.</para>
+                    </listitem>
+                    <listitem>
+                        <para>No support for metadata.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname>annoFeat</classname> is mandatory.</para>
+                    </listitem>
+                </itemizedlist><emphasis>Version 1.1</emphasis>
+                <itemizedlist>
+                    <listitem>
+                        <para>Use of virtual markables is not possible.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname>feat</classname> attribute
+                                <classname>@value</classname> to specify pointing relation target
+                            nodes is not possible.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname>feat</classname> attribute
+                                <classname>@target</classname> to specify pointing relation target
+                            nodes is possible but deprecated.</para>
+                    </listitem>
+                    <listitem>
+                        <para>New file type and element <classname>rel</classname> is recommended
+                            for the specification of pointing relations.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Support for metadata on the corpus, subcorpus and document
+                            levels.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Use of <classname>annoFeat</classname> is optional and
+                            deprecated.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Support for <link xlink:href="#parallel_corpora">parallel
+                                corpora</link> via pointing relations.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Support for aligned <link xlink:href="#multimodal">multimedia
+                                files</link>.</para>
+                    </listitem>
+                </itemizedlist></para>
+        </sect1>
+    </chapter>
+     <bibliography xmlns='http://docbook.org/ns/docbook'>
+        <title>References</title>
+        
+        <bibliomixed>
+            <bibliomset relation="journal"><abbrev>ChiarcosEtAl2008</abbrev>Chiarcos, C., Dipper, S., Götze, M., Leser, U., Lüdeling,
+                A., Ritz, J. &amp; Stede, M. (2008), A Flexible Framework for Integrating
+                Annotations from Different Tools and Tag Sets. <title>Traitment automatique des
+                    langues</title>
+                <volumenum>49</volumenum>, <pagenums>271-293</pagenums>. </bibliomset> 
+        </bibliomixed>
+         <bibliomixed>
+            <bibliomset relation="proceedings"><abbrev>Dipper2005</abbrev>Dipper, S. (2005), XML-based Stand-off Representation and Exploitation of Multi-Level Linguistic Annotation. In: <title role="proceedings">Proceedings of Berliner XML Tage
+                    2005 (BXML 2005)</title>. Berlin, Germany, <pagenums>39-50</pagenums>. 
+            </bibliomset>
+         </bibliomixed>
+         <bibliomixed>
+            <bibliomset relation="proceedings"><abbrev>DipperGoetze2005</abbrev>Dipper, S. &amp; Götze, M. (2005), Accessing Heterogeneous Linguistic Data - Generic XML-based Representation and Flexible Visualization
+                . In: <title role="proceedings">Proceedings of the 2nd Language &amp; Technology Conference: Human Language Technologies as a Challenge for Computer Science and Linguistics</title>. Poznan, Poland, <pagenums>206-210</pagenums>. 
+            </bibliomset>
+            
+         </bibliomixed>
+        
+    </bibliography>
+</book>
