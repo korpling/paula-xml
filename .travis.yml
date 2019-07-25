@@ -14,7 +14,7 @@ before_script:
   - export SHORT_VERSION=`echo ${TRAVIS_TAG:-develop} | sed -E 's/(\.[0-9]+)$//'`
 
 script:
-  - mdbook build --dest-dir book/${SHORT_VERSION} docs/
+  - mdbook build --dest-dir book/${SHORT_VERSION} .
 
 
 deploy:
