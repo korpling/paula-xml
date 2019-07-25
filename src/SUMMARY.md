@@ -1,6 +1,9 @@
 # Summary
 
 - [Preamble](./preamble.md)
+
+-----------
+
 - [Datamodel overview](./datamodel-overview.md)
 - [Corpus structure](./corpus-structure.md)
 - [Required files and DTDs](./required-files-and-dtds.md)
@@ -12,4 +15,7 @@
 - [Namespaces](./namespaces.md)
 - [Special scenarios](./special-scenarios.md)
 - [Naming conventions](./naming-conventions.md)
+
+-----------
+
 - [Older versions and deprecated components](./deprecated.md)
