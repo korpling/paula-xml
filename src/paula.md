@@ -1454,16 +1454,3 @@ XML standard versions to date.
 
   - Support for aligned [multimedia files](#multimodal).
 
-# References
-
-ChiarcosEtAl2008Chiarcos, C., Dipper, S., Götze, M., Leser, U.,
-Lüdeling, A., Ritz, J. & Stede, M. (2008), A Flexible Framework for
-Integrating Annotations from Different Tools and Tag Sets. 49, 271-293.
-
-Dipper2005Dipper, S. (2005), XML-based Stand-off Representation and
-Exploitation of Multi-Level Linguistic Annotation. In: . Berlin,
-Germany, 39-50.
-
-DipperGoetze2005Dipper, S. & Götze, M. (2005), Accessing Heterogeneous
-Linguistic Data - Generic XML-based Representation and Flexible
-Visualization . In: . Poznan, Poland, 206-210.

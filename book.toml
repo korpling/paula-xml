@@ -4,3 +4,8 @@ language = "en"
 multilingual = false
 src = "src"
 title = "PAULA XML Documentation"
+
+[output.html]
+mathjax-support = true
+
+#[output.linkcheck]
