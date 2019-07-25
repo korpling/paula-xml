@@ -25,4 +25,4 @@ mdbook build
 
 See the [mdBook User Guide](https://rust-lang-nursery.github.io/mdBook/) for more instructions on how to build this documentation.
 
-Changes are automatically deployed to [https://korpling.github.io/paula-xml/develop/](https://korpling.github.io/paula-xml/next/).
+Changes are automatically deployed to [https://korpling.github.io/paula-xml/next/](https://korpling.github.io/paula-xml/next/).
