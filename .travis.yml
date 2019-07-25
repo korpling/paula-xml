@@ -23,6 +23,6 @@ deploy:
     on:
       repo: korpling/paula-xml
       branch: master
-      tags: true
+      tags: false
       condition: $TRAVIS_OS_NAME = linux
     skip-cleanup: true
