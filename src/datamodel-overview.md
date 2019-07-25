@@ -12,7 +12,7 @@ All documents must contain at least one source of [`primary text
 data`](primary-text-data.md), possibly more in cases of [parallel
 corpora](#parallel_corpora) or [dialogue data](special-scenarios.md#dialogue-data), and at
 least one [`tokenization`](spans-and-markables.md#tokenizations-and-token-markables) of this data. Tokenized data may be annotated directly using features called [`feat`](spans-and-markables.md#feats), such as parts-of-speech, lemmatization, etc. Further hierarchical structures can
-be built on top of tokens using flat span objects called [`mark`](spans-and-markables)
+be built on top of tokens using flat span objects called [`mark`](spans-and-markables.md)
 (i.e. markables) or hierarchically nestable objects called
 [`struct`](hierarchical-structures.md#structs) (i.e. structures), which may also be annotated with
 `feat` objects. The type of node or annotation (part-of-speech,
