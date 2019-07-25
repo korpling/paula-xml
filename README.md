@@ -10,6 +10,20 @@ As a generalized XML format, PAULA is indifferent to particular names or semanti
 
 See the current PAULA documentation: [PAULA version 1.1](http://www.sfb632.uni-potsdam.de/images/doc/PAULA_P1.1.2013.1.21a.pdf)
 
+## References
+
+Chiarcos, C., Dipper, S., Götze, M., Leser, U.,
+Lüdeling, A., Ritz, J. & Stede, M. (2008), A Flexible Framework for
+Integrating Annotations from Different Tools and Tag Sets. *Traitment automatique des langues* 49, 271-293.
+
+Dipper, S. (2005), XML-based Stand-off Representation and
+Exploitation of Multi-Level Linguistic Annotation. In: *Proceedings of Berliner XML Tage 2005 (BXML 2005)*. Berlin, Germany, 39-50.
+
+Dipper, S. & Götze, M. (2005), Accessing Heterogeneous
+Linguistic Data - Generic XML-based Representation and Flexible
+Visualization . In: *Proceedings of the 2nd Language & Technology Conference: Human Language Technologies as a Challenge for Computer Science and Linguistics*. Poznan, Poland, 206-210.
+
+
 ## Compile the documentation
 
 **Note that the markdown files in this repository are work in progress! If you just need the released documentation use the link to the PDF file above.**
