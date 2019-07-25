@@ -23,6 +23,4 @@ Execute mdBook to build a HTML version of the documentation in the `book/` subdi
 mdbook build
 ```
 
-See the [mdBook User Guide](https://rust-lang-nursery.github.io/mdBook/) for more instructions on how to build this documentation.
-
-Changes are automatically deployed to [https://korpling.github.io/paula-xml/next/](https://korpling.github.io/paula-xml/next/).
+See the [mdBook User Guide](https://rust-lang-nursery.github.io/mdBook/) for more instructions on how to build this documentation. For smaller changes (e.g. typos), you can also just edit the Markdown files in the `src/` folder directly on GitHub. Changes are automatically deployed to [https://korpling.github.io/paula-xml/next/](https://korpling.github.io/paula-xml/next/).
