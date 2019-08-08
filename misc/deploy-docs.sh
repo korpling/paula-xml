@@ -8,9 +8,7 @@ if [ -n "$GITHUB_API_KEY" ]; then
     echo "cloning gh-pages"
     git clone -q  -b gh-pages https://$GITHUB_API_KEY@github.com/{TRAVIS_REPO_SLUG} gh-pages &>/dev/null
     cd gh-pages
-    mkdir -p docs
-    cd docs
-    cp -R ${TRAVIS_BUILD_DIR}/docs/book/* .
+    cp -R ${TRAVIS_BUILD_DIR}/book/* .
     git add .
     git -c user.name='travis' -c user.email='travis' commit -m "update documentation for version ${SHORT_VERSION}"
     echo "pushing to gh-pages"
