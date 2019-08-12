@@ -9,7 +9,7 @@ rust:
 
 before_script:
   - misc/download-mdbook.sh 0.3.1
-  - export SHORT_VERSION=`echo ${TRAVIS_TAG:-next} | sed -E 's/(\.[0-9]+)$//'`
+  - export SHORT_VERSION=`echo ${TRAVIS_TAG:-unpublished} | sed -E 's/(\.[0-9]+)$//'`
 
 script:
   - mdbook build --dest-dir book/${SHORT_VERSION} .
