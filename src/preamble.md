@@ -7,7 +7,7 @@ annotated textual and multi-modal corpora. The format was created at
 Potsdam University and developed within SFB 632, the collaborative
 research centre "Information Structure", subproject D1, "Linguistic
 Database" at Potsdam University and Humboldt-Universität zu Berlin (see
-Dipper 2005[^Dipper2005], Dipper and Goetze 2005[^DipperandGoetze200], Chiarcos et al. 2008[^ChiarcosEtAl2008]). The description below
+Dipper 2005[^Dipper2005], Dipper and Goetze 2005[^DipperGoetze2005], Chiarcos et al. 2008[^ChiarcosEtAl2008]). The description below
 represents the normative documentation for PAULA version 1.1, with some
 notes on previous versions of PAULA. For the latest documentation always
 check the PAULA Website which also contains an online HTML version of
@@ -46,13 +46,15 @@ elements](deprecated.md) of the PAULA XML standard focusing on differences
 to the current version.
 
 
-[^ChiarcosEtAl2008]: Chiarcos, C., Dipper, S., Götze, M., Leser, U.,
-Lüdeling, A., Ritz, J. & Stede, M. (2008), A Flexible Framework for
-Integrating Annotations from Different Tools and Tag Sets. *Traitment automatique des langues* 49, 271-293.
 
 [^Dipper2005]: Dipper, S. (2005), XML-based Stand-off Representation and
 Exploitation of Multi-Level Linguistic Annotation. In: *Proceedings of Berliner XML Tage 2005 (BXML 2005)*. Berlin, Germany, 39-50.
 
+
 [^DipperGoetze2005]: Dipper, S. & Götze, M. (2005), Accessing Heterogeneous
 Linguistic Data - Generic XML-based Representation and Flexible
 Visualization . In: *Proceedings of the 2nd Language & Technology Conference: Human Language Technologies as a Challenge for Computer Science and Linguistics*. Poznan, Poland, 206-210.
+
+[^ChiarcosEtAl2008]: Chiarcos, C., Dipper, S., Götze, M., Leser, U.,
+Lüdeling, A., Ritz, J. & Stede, M. (2008), A Flexible Framework for
+Integrating Annotations from Different Tools and Tag Sets. *Traitment automatique des langues* 49, 271-293.
