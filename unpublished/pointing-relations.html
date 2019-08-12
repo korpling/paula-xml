@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Pointing relations - PAULA XML Documentation</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="preamble.html">Preamble</a></li><li class="spacer"></li><li><a href="datamodel-overview.html"><strong aria-hidden="true">1.</strong> Datamodel overview</a></li><li><a href="corpus-structure.html"><strong aria-hidden="true">2.</strong> Corpus structure</a></li><li><a href="required-files-and-dtds.html"><strong aria-hidden="true">3.</strong> Required files and DTDs</a></li><li><a href="metadata.html"><strong aria-hidden="true">4.</strong> Metadata</a></li><li><a href="primary-text-data.html"><strong aria-hidden="true">5.</strong> Primary text data</a></li><li><a href="spans-and-markables.html"><strong aria-hidden="true">6.</strong> Spans and markables</a></li><li><a href="hierarchical-structures.html"><strong aria-hidden="true">7.</strong> Hierarchical structures</a></li><li><a href="pointing-relations.html" class="active"><strong aria-hidden="true">8.</strong> Pointing relations</a></li><li><a href="namespaces.html"><strong aria-hidden="true">9.</strong> Namespaces</a></li><li><a href="special-scenarios.html"><strong aria-hidden="true">10.</strong> Special scenarios</a></li><li><a href="naming-conventions.html"><strong aria-hidden="true">11.</strong> Naming conventions</a></li><li><a href="deprecated.html"><strong aria-hidden="true">12.</strong> Older versions and deprecated components</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">PAULA XML Documentation</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#pointing-relations" id="pointing-relations">Pointing relations</a></h1>
+<p>Pointing relations are ahierarchical edges between any two annotation
+node elements, that is between any combination of <code>tok</code>, <code>mark</code> or
+<code>struct</code>. Unlike <a href="hierarchical-structures.html#structs">hierarchical edges</a>, pointing relations do
+not express 'dominance' semantics, meaning that the source of the edge
+is not understood to 'consist of' the target of the edge. The edge
+merely marks a relationship between two nodes. For this reason, pointing
+relations are useful in expressing such links as coreference (e.g. a
+link between anaphor and antecedent) and syntactic dependencies.
+Pointing relations are represented using <code>rel</code> elements in rel files,
+and obey the definition in <code>paula_rel.dtd</code> (see <a href="required-files-and-dtds.html#additional-dtds">DTDs</a>). The
+following example illustrates rel edges between tokens defined in the
+file <code>mycorpus.doc1.tok.xml</code>, but the sources and targets of the edges
+can also be any <code>struct</code> or <code>mark</code> within a document.</p>
+<p><strong>Pointing relations between token nodes to annotate dependencies of type &quot;dep&quot;</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_rel.dtd&quot;&gt;
+
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_dep&quot;/&gt;
+
+&lt;relList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;dep&quot; 
+xml:base=&quot;mycorpus.doc1.tok.xml&quot;&gt;
+    &lt;!-- I - 've --&gt;
+    &lt;rel id=&quot;rel_1&quot; xlink:href=&quot;#tok_1&quot; target=&quot;#tok_2&quot;/&gt; 
+    &lt;!-- 've - picked --&gt;
+    &lt;rel id=&quot;rel_2&quot; xlink:href=&quot;#tok_3&quot; target=&quot;#tok_2&quot;/&gt; 
+    &lt;!-- the - kids --&gt;
+    &lt;rel id=&quot;rel_3&quot; xlink:href=&quot;#tok_4&quot; target=&quot;#tok_5&quot;/&gt; 
+    &lt;!-- picked - kids --&gt;
+    &lt;rel id=&quot;rel_4&quot; xlink:href=&quot;#tok_5&quot; target=&quot;#tok_3&quot;/&gt; 
+    &lt;!-- picked - up --&gt;
+    &lt;rel id=&quot;rel_5&quot; xlink:href=&quot;#tok_6&quot; target=&quot;#tok_3&quot;/&gt; 
+&lt;/relList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>The <code>rel</code> file only defines the edges and the <code>@type</code> of the <code>relList</code>,
+in this case &quot;dep&quot;. To add an annotation to these edges, for example
+grammatical functions, a <code>feat</code> file is used, as in the following
+example:</p>
+<p><strong>Annotating the grammatical function &quot;func&quot; for dependency pointing relations</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+
+&lt;!DOCTYPE paula SYSTEM &quot;paula_feat.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_dep_func&quot;/&gt;
+
+&lt;featList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;func&quot; 
+xml:base=&quot;mycorpus.doc1.dep.xml&quot;&gt;
+    &lt;feat xlink:href=&quot;#rel_1&quot; value=&quot;SBJ&quot;/&gt;&lt;!-- I - 've --&gt;
+    &lt;feat xlink:href=&quot;#rel_2&quot; value=&quot;VC&quot;/&gt;&lt;!-- 've picked --&gt;
+    &lt;feat xlink:href=&quot;#rel_3&quot; value=&quot;NMOD&quot;/&gt;&lt;!-- the - kids --&gt;
+    &lt;feat xlink:href=&quot;#rel_4&quot; value=&quot;OBJ&quot;/&gt;&lt;!-- picked - kids --&gt;
+    &lt;feat xlink:href=&quot;#rel_5&quot; value=&quot;PRT&quot;/&gt;&lt;!-- picked - up --&gt;
+&lt;/featList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>Each <code>feat</code> element points to a <code>rel</code> element in the pointing relation
+file and gives the annotation value in its <code>@value</code> attribute. The name
+of the annotation, &quot;func&quot;, is determined in the @type attribute of the
+<code>featList</code>.</p>
+<p>Just as with markables, it is also possible to specify multiple
+annotations for the same pointing relations in one XML document using
+multiFeat files (see <a href="spans-and-markables.html#multifeats">multiFeats</a> for details).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="hierarchical-structures.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="namespaces.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="hierarchical-structures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="namespaces.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

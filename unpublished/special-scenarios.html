@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Special scenarios - PAULA XML Documentation</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="preamble.html">Preamble</a></li><li class="spacer"></li><li><a href="datamodel-overview.html"><strong aria-hidden="true">1.</strong> Datamodel overview</a></li><li><a href="corpus-structure.html"><strong aria-hidden="true">2.</strong> Corpus structure</a></li><li><a href="required-files-and-dtds.html"><strong aria-hidden="true">3.</strong> Required files and DTDs</a></li><li><a href="metadata.html"><strong aria-hidden="true">4.</strong> Metadata</a></li><li><a href="primary-text-data.html"><strong aria-hidden="true">5.</strong> Primary text data</a></li><li><a href="spans-and-markables.html"><strong aria-hidden="true">6.</strong> Spans and markables</a></li><li><a href="hierarchical-structures.html"><strong aria-hidden="true">7.</strong> Hierarchical structures</a></li><li><a href="pointing-relations.html"><strong aria-hidden="true">8.</strong> Pointing relations</a></li><li><a href="namespaces.html"><strong aria-hidden="true">9.</strong> Namespaces</a></li><li><a href="special-scenarios.html" class="active"><strong aria-hidden="true">10.</strong> Special scenarios</a></li><li><a href="naming-conventions.html"><strong aria-hidden="true">11.</strong> Naming conventions</a></li><li><a href="deprecated.html"><strong aria-hidden="true">12.</strong> Older versions and deprecated components</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">PAULA XML Documentation</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#special-scenarios" id="special-scenarios">Special scenarios</a></h1>
+<h2><a class="header" href="#parallel-corpora" id="parallel-corpora">Parallel corpora</a></h2>
+<p>Parallel corpora can be modelled in PAULA XML in a variety of ways that
+are more or less appropriate. For instance, an implicit parallel
+alignment can be achieved by treating an aligned text as an annotation
+of a source text (each word or group of words is annotated with parallel
+words). However, the explicit and recommended representation of parallel
+corpora in PAULA is modelled by defining multiple <code>primary text data</code> files within a <code>document</code> directory, each with at least one
+<code>tokenization</code>. In this way, each text is explicitly made independent
+from the others and text level alignment is represented by the shared
+document folder. It is recommended to give each text and tokenization a
+separate, meaningful <a href="namespaces.html">namespace</a>, such as the name of the
+language if dealing with a multilingual parallel corpus. Alignment
+between elements within parallel texts, including aligned tokens,
+<a href="spans-and-markables.html">markable spans</a> (e.g. sentences or chunks) or <a href="hierarchical-structures.html#structs">hierarchical
+structures</a>, is achieved using <a href="pointing-relations.html">pointing
+relations</a>. The following example illustrates the
+document structure and an alignment for some tokens.</p>
+<p><strong>Directory structure for a document with two parallel texts.</strong></p>
+<pre><code>+-- mycorpus/
+¦   +-- doc1/
+¦   ¦   ¦-- english.doc1.text.xml
+¦   ¦   ¦-- english.doc1.tok.xml
+¦   ¦   ¦-- german.doc1.text.xml
+¦   ¦   ¦-- german.doc1.tok.xml
+¦   ¦   ¦-- mycorpus.doc1.align.xml
+¦   ¦   ¦-- mycorpus.doc1.anno.xml
+... ... ...
+</code></pre>
+<p><strong>Pointing relations aligning the English text to the German text.</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_rel.dtd&quot;&gt;
+
+
+&lt;paula version=&quot;1.1&quot;&gt;
+
+&lt;header paula_id=&quot;mycorpus.doc1_align&quot;/&gt;
+
+&lt;relList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;align&quot;&gt;
+    &lt;rel id=&quot;rel_1&quot; xlink:href=&quot;english.doc1.tok.xml#tok_1&quot; 
+    target=&quot;german.doc.tok.xml#tok_1&quot;/&gt;
+    &lt;rel id=&quot;rel_1&quot; xlink:href=&quot;english.doc1.tok.xml#tok_2&quot; 
+    target=&quot;german.doc.tok.xml#tok_3&quot;/&gt;
+    &lt;rel id=&quot;rel_1&quot; xlink:href=&quot;english.doc1.tok.xml#tok_3&quot; 
+    target=&quot;german.doc.tok.xml#tok_2&quot;/&gt;
+&lt;/paula&gt;
+</code></pre>
+<p>Note that since pointing relations of the same type may not create a
+cycle, bidirectional alignment is only possible if the pointing relation
+files are given different types, as in the following example. The two
+alignment files use the types &quot;align_g-e&quot; and &quot;align_e-g&quot; for each
+alignment direction.</p>
+<p><strong>Directory structure for a document with bidirectional alignment.</strong></p>
+<pre><code>+-- mycorpus/
+¦   +-- doc1/
+¦   ¦   ¦-- english.doc1.align_e-g.xml
+¦   ¦   ¦-- english.doc1.text.xml
+¦   ¦   ¦-- english.doc1.tok.xml
+¦   ¦   ¦-- german.doc1.align_g-e.xml
+¦   ¦   ¦-- german.doc1.text.xml
+¦   ¦   ¦-- german.doc1.tok.xml
+¦   ¦   ¦-- mycorpus.doc1.anno.xml
+... ... ...
+</code></pre>
+<h2><a class="header" href="#dialogue-data" id="dialogue-data">Dialogue data</a></h2>
+<p>There are two main ways of representing dialog data in PAULA XML: either
+each speaker's text and annotations are modeled as a text in a parallel
+corpus (see <a href="#parallel-corpora">parallel corpora</a>) or else a <code>primary textual data</code> file is created with as many blank characters as necessary for the
+representation of all speakers, and this is then used as a common
+timeline for the tokens of each speaker. The latter solution is
+implemented as follows. Supposing two speakers utter the following two
+semi overlapping sentence:</p>
+<p><strong>Dialog data to be modelled in PAULA.</strong></p>
+<pre><code>Speaker1:   he thinks so
+Speaker2:              I think so too
+</code></pre>
+<p>Speaker2 utters the word &quot;I&quot; at the same time as the &quot;o&quot; is uttered in
+&quot;so&quot; by Speaker1. In order to model this overlap using only one &quot;text&quot;,
+the <code>primary textual data</code> must contain a sufficient amount of
+characters. The text for Speaker1 is 12 characters long, including
+spaces, and the text for Speaker2 begins at character 12 of Speaker1 and
+extends for a further 14 characters. This means we require 25 characters
+in total (not 26, since there is an overlap of one character). The raw
+text file can therefore look like this:</p>
+<p><strong>A primary text data file</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_text.dtd&quot;&gt;
+
+&lt;paula version=&quot;1.1&quot;&gt;
+&lt;header paula_id=&quot;mycorpus.doc4_text&quot; type=&quot;text&quot;/&gt;
+
+&lt;body&gt;1234567890123456789012345&lt;/body&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p>The body of the text contains repeating numbers: 1234567890... to make
+it easier to count the characters. However it is equally possible to use
+25 spaces: the contents of this dummy text file are not important. In a
+second step, two tokenizations of the data are carried out: one for each
+speaker. The tokenization for Speaker1 is given in the following
+example. It is recommended to give each speaker a separate namespace for
+easier identifiability.</p>
+<p><strong>Tokenization for Speaker1</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_mark.dtd&quot;&gt;
+&lt;paula version=&quot;1.1&quot;&gt;
+                
+&lt;header paula_id=&quot;mycorpus.doc4_tok&quot;/&gt;
+                
+&lt;markList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; type=&quot;tok&quot; 
+xml:base=&quot;mycorpus.doc4.text.xml&quot;&gt;
+ &lt;!-- he --&gt;
+ &lt;mark id=&quot;tok_1&quot; xlink:href=&quot;#xpointer(string-range(//body,'',1,2))&quot;/&gt;
+ &lt;!-- thinks --&gt;
+ &lt;mark id=&quot;tok_2&quot; xlink:href=&quot;#xpointer(string-range(//body,'',4,6))&quot;/&gt;
+ &lt;!-- so --&gt;
+ &lt;mark id=&quot;tok_3&quot; xlink:href=&quot;#xpointer(string-range(//body,'',11,2))&quot;/&gt;
+&lt;/markList&gt;
+
+&lt;/paula&gt;
+            
+</code></pre>
+<p>Annotations for each speaker can then be added by refering to the
+relevant token file and building hierarchical structures above the
+tokens.</p>
+<h2><a class="header" href="#aligned-audiovideo-files" id="aligned-audiovideo-files">Aligned audio/video files</a></h2>
+<p>Aligned multimedia files, such as audio or video files, can be added to
+a PAULA document by placing them in the relevant document directory. In
+order to specify which part of a text is represented in the aligned file
+or files, a <code>mark</code> element covering the appropriate span of tokens
+should be defined and annotated using a <code>feat</code> which contains the file
+name as in the example below. It is possible to annotate the same <code>mark</code>
+element with multiple multimedia files.</p>
+<p><strong>A <code>mark</code> file defining the span of tokens aligned with a multimedia file.</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_mark.dtd&quot;&gt;
+
+&lt;paula version=&quot;1.1&quot;&gt;
+&lt;header paula_id=&quot;mycorpus.doc1_audioFileSeg&quot;/&gt;
+
+&lt;markList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; 
+type=&quot;audioFileSeg&quot; xml:base=&quot;mycorpus.doc1.tok.xml&quot;&gt;
+ &lt;!-- audio file span for the first 50 tokens --&gt;
+ &lt;mark id=&quot;audioFileSeg_1&quot; 
+  xlink:href=&quot;#xpointer(id('tok_1')/range-to(id('tok_50')))&quot;/&gt;
+&lt;/markList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+<p><strong>A <code>feat</code> file giving the name of the multimedia file.</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE paula SYSTEM &quot;paula_feat.dtd&quot;&gt;
+
+&lt;paula version=&quot;1.1&quot;&gt;
+&lt;header paula_id=&quot;&quot;mycorpus.doc1_audioFileSeg_audioFile&quot;/&gt;
+
+&lt;featList xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; 
+type=&quot;audioFile&quot; xml:base=&quot;mycorpus.doc1.audioFileSeg.xml&quot;&gt;
+  &lt;!-- wav file --&gt;
+  &lt;feat xlink:href=&quot;#audioFileSeg_1&quot; value=&quot;file:/./mycorpus.doc1.wav&quot;/&gt;
+&lt;/featList&gt;
+
+&lt;/paula&gt;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="namespaces.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="naming-conventions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="namespaces.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="naming-conventions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
