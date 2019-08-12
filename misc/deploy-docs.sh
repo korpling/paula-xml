@@ -5,6 +5,8 @@
 if [ -n "$GITHUB_API_KEY" ]; then
     cd "$TRAVIS_BUILD_DIR"
 
+    rm -Rf gh-pages
+
     echo "cloning gh-pages"
     git clone -q  -b gh-pages https://$GITHUB_API_KEY@github.com/{TRAVIS_REPO_SLUG} gh-pages &>/dev/null || (echo "Git clone failed. Did you use the correct value for the GITHUB_API_KEY environment variable?"; exit 1)
     cd gh-pages
