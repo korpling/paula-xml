@@ -32,7 +32,7 @@ The old documentation was written in Docbook but we are now migrating to Markdow
 
 You will need [mdBook](https://github.com/rust-lang-nursery/mdBook) installed (at least version 0.3.1) which you can get from their [release page](https://github.com/rust-lang-nursery/mdBook/releases).
 For smaller changes (e.g. typos), you can also just edit the Markdown files in the `src/` folder directly on GitHub. Changes are automatically deployed to <https://korpling.github.io/paula-xml/unpublished/> and later bundled in proper releases.
-A PDF version of the documentation is published under <https://korpling.github.io/paula-xml/unpublished/PAULA%20XML%20Documentation.pdf>.
+A PDF version of the draft is published under <https://korpling.github.io/paula-xml/unpublished/PAULA%20XML%20Documentation.pdf>.
 
 Execute mdBook to build a HTML version of the documentation in the `book/` subdirectory.
 ```bash
