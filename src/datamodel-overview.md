@@ -32,8 +32,6 @@ the corpus/document structure and the structure of objects within them.
 For details and examples of the individual model elements and their
 specific XML serialization see the next chapters.
 
-**Datamodel for (sub)corpus and document tree**\
-![Datamodel for (sub)corpus and document tree](figures/paula_corpusStructure.png)
+![](figures/paula_corpusStructure.png "Datamodel for (sub)corpus and document tree")
 
-**Datamodel for document-internal objects**\
-![Datamodel for document-internal objects](figures/paula_documentStructure.png)
+![](figures/paula_documentStructure.png "Datamodel for document-internal objects")

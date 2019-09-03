@@ -1,18 +1,32 @@
 language: rust
 sudo: false
+dist: bionic
 
 cache:
-  - cargo
+  directories:
+    - $HOME/.cache/Tectonic
+    - $HOME/.cargo/bin
+
 
 rust:
   - stable
+
+addons:
+  apt:
+    packages:
+      - libfontconfig1-dev
+      - libgraphite2-dev
+      - libharfbuzz-dev
+      - libicu-dev
+      - libssl-dev
+      - zlib1g-dev
 
 before_script:
   - misc/download-mdbook.sh 0.3.1
   - export SHORT_VERSION=`echo ${TRAVIS_TAG:-unpublished} | sed -E 's/(\.[0-9]+)$//'`
 
 script:
-  - mdbook build --dest-dir book/${SHORT_VERSION} .
+  - RUST_BACKTRACE=1 mdbook build .
 
 
 deploy:
