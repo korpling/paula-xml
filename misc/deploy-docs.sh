@@ -10,7 +10,8 @@ if [ -n "$GITHUB_API_KEY" ]; then
     echo "cloning gh-pages from https://github.com/${TRAVIS_REPO_SLUG}"
     git clone -q  -b gh-pages https://$GITHUB_API_KEY@github.com/${TRAVIS_REPO_SLUG} gh-pages &>/dev/null || { echo "Git clone failed. Did you use the correct value for the GITHUB_API_KEY environment variable?"; exit 1; }
     cd gh-pages
-    cp -R ${TRAVIS_BUILD_DIR}/book/* .
+    mkdir -p ${SHORT_VERSION}
+    cp -R ${TRAVIS_BUILD_DIR}/book/* ${SHORT_VERSION}
     git add .
     git -c user.name='travis' -c user.email='travis' commit -m "update documentation for version ${SHORT_VERSION}"
     echo "pushing to gh-pages to https://github.com/${TRAVIS_REPO_SLUG}"
