@@ -1,8 +1,10 @@
 language: rust
 sudo: false
+dist: bionic
 
 cache:
   - cargo
+
 
 rust:
   - stable
