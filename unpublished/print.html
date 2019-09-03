@@ -264,15 +264,15 @@ corpus or subcorpus should receive metadata annotations (see
 <a href="metadata.html">metadata</a>).</p>
 <p><strong>Directory structure for a PAULA corpus</strong></p>
 <pre><code>+-- mycorpus/
-¦   +-- subcorpus1/
-¦   ¦   +-- doc1/
-¦   ¦   +-- doc2/
-¦   ¦   +-- doc3/
-¦   +-- subcorpus2/
-¦   ¦   +-- doc4/
-¦   ¦   +-- doc5/
-¦   ¦   +-- ...
-¦   +-- subcorpus3/
+|   +-- subcorpus1/
+|   |   +-- doc1/
+|   |   +-- doc2/
+|   |   +-- doc3/
+|   +-- subcorpus2/
+|   |   +-- doc4/
+|   |   +-- doc5/
+|   |   +-- ...
+|   +-- subcorpus3/
 ... ...
 </code></pre>
 <p>A subdirectory which contains no further directories is a document.
@@ -1148,16 +1148,16 @@ end of the prefix is marked by a period.</p>
 structure:</p>
 <p><strong>Directory structure for a PAULA corpus</strong></p>
 <pre><code>+-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- coref.doc1.discourse.xml
-¦   ¦   ¦-- coref.doc1.discourse_anaphoric.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
-¦   ¦   ¦-- mycorpus.doc1.annoFeat.xml
-¦   ¦   ¦-- mycorpus.doc1.text.xml
-¦   ¦   ¦-- mycorpus.doc1.tok.xml
-¦   ¦   ¦-- syntax.mycorpus.doc1.const.xml
-¦   ¦   ¦-- syntax.mycorpus.doc1.const_cat.xml
-¦   ¦   ¦-- syntax.mycorpus.doc1.const_func.xml
+|   +-- doc1/
+|   |   |-- coref.doc1.discourse.xml
+|   |   |-- coref.doc1.discourse_anaphoric.xml
+|   |   |-- mycorpus.doc1.anno.xml
+|   |   |-- mycorpus.doc1.annoFeat.xml
+|   |   |-- mycorpus.doc1.text.xml
+|   |   |-- mycorpus.doc1.tok.xml
+|   |   |-- syntax.mycorpus.doc1.const.xml
+|   |   |-- syntax.mycorpus.doc1.const_cat.xml
+|   |   |-- syntax.mycorpus.doc1.const_func.xml
 ... ... ...
 </code></pre>
 <p>The first two file names being with the prefix &quot;coref&quot;. This prefix
@@ -1208,13 +1208,13 @@ relations</a>. The following example illustrates the
 document structure and an alignment for some tokens.</p>
 <p><strong>Directory structure for a document with two parallel texts.</strong></p>
 <pre><code>+-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- english.doc1.text.xml
-¦   ¦   ¦-- english.doc1.tok.xml
-¦   ¦   ¦-- german.doc1.text.xml
-¦   ¦   ¦-- german.doc1.tok.xml
-¦   ¦   ¦-- mycorpus.doc1.align.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
+|   +-- doc1/
+|   |   |-- english.doc1.text.xml
+|   |   |-- english.doc1.tok.xml
+|   |   |-- german.doc1.text.xml
+|   |   |-- german.doc1.tok.xml
+|   |   |-- mycorpus.doc1.align.xml
+|   |   |-- mycorpus.doc1.anno.xml
 ... ... ...
 </code></pre>
 <p><strong>Pointing relations aligning the English text to the German text.</strong></p>
@@ -1242,14 +1242,14 @@ alignment files use the types &quot;align_g-e&quot; and &quot;align_e-g&quot; fo
 alignment direction.</p>
 <p><strong>Directory structure for a document with bidirectional alignment.</strong></p>
 <pre><code>+-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- english.doc1.align_e-g.xml
-¦   ¦   ¦-- english.doc1.text.xml
-¦   ¦   ¦-- english.doc1.tok.xml
-¦   ¦   ¦-- german.doc1.align_g-e.xml
-¦   ¦   ¦-- german.doc1.text.xml
-¦   ¦   ¦-- german.doc1.tok.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
+|   +-- doc1/
+|   |   |-- english.doc1.align_e-g.xml
+|   |   |-- english.doc1.text.xml
+|   |   |-- english.doc1.tok.xml
+|   |   |-- german.doc1.align_g-e.xml
+|   |   |-- german.doc1.text.xml
+|   |   |-- german.doc1.tok.xml
+|   |   |-- mycorpus.doc1.anno.xml
 ... ... ...
 </code></pre>
 <h2><a class="header" href="#dialogue-data" id="dialogue-data">Dialogue data</a></h2>

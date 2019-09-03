@@ -168,13 +168,13 @@ relations</a>. The following example illustrates the
 document structure and an alignment for some tokens.</p>
 <p><strong>Directory structure for a document with two parallel texts.</strong></p>
 <pre><code>+-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- english.doc1.text.xml
-¦   ¦   ¦-- english.doc1.tok.xml
-¦   ¦   ¦-- german.doc1.text.xml
-¦   ¦   ¦-- german.doc1.tok.xml
-¦   ¦   ¦-- mycorpus.doc1.align.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
+|   +-- doc1/
+|   |   |-- english.doc1.text.xml
+|   |   |-- english.doc1.tok.xml
+|   |   |-- german.doc1.text.xml
+|   |   |-- german.doc1.tok.xml
+|   |   |-- mycorpus.doc1.align.xml
+|   |   |-- mycorpus.doc1.anno.xml
 ... ... ...
 </code></pre>
 <p><strong>Pointing relations aligning the English text to the German text.</strong></p>
@@ -202,14 +202,14 @@ alignment files use the types &quot;align_g-e&quot; and &quot;align_e-g&quot; fo
 alignment direction.</p>
 <p><strong>Directory structure for a document with bidirectional alignment.</strong></p>
 <pre><code>+-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- english.doc1.align_e-g.xml
-¦   ¦   ¦-- english.doc1.text.xml
-¦   ¦   ¦-- english.doc1.tok.xml
-¦   ¦   ¦-- german.doc1.align_g-e.xml
-¦   ¦   ¦-- german.doc1.text.xml
-¦   ¦   ¦-- german.doc1.tok.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
+|   +-- doc1/
+|   |   |-- english.doc1.align_e-g.xml
+|   |   |-- english.doc1.text.xml
+|   |   |-- english.doc1.tok.xml
+|   |   |-- german.doc1.align_g-e.xml
+|   |   |-- german.doc1.text.xml
+|   |   |-- german.doc1.tok.xml
+|   |   |-- mycorpus.doc1.anno.xml
 ... ... ...
 </code></pre>
 <h2><a class="header" href="#dialogue-data" id="dialogue-data">Dialogue data</a></h2>
