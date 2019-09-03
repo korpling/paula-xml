@@ -27,15 +27,15 @@ corpus or subcorpus should receive metadata annotations (see
 **Directory structure for a PAULA corpus**
 ```
 +-- mycorpus/
-¦   +-- subcorpus1/
-¦   ¦   +-- doc1/
-¦   ¦   +-- doc2/
-¦   ¦   +-- doc3/
-¦   +-- subcorpus2/
-¦   ¦   +-- doc4/
-¦   ¦   +-- doc5/
-¦   ¦   +-- ...
-¦   +-- subcorpus3/
+|   +-- subcorpus1/
+|   |   +-- doc1/
+|   |   +-- doc2/
+|   |   +-- doc3/
+|   +-- subcorpus2/
+|   |   +-- doc4/
+|   |   +-- doc5/
+|   |   +-- ...
+|   +-- subcorpus3/
 ... ...
 ```
 

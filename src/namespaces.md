@@ -13,16 +13,16 @@ structure:
 **Directory structure for a PAULA corpus**
 ```
 +-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- coref.doc1.discourse.xml
-¦   ¦   ¦-- coref.doc1.discourse_anaphoric.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
-¦   ¦   ¦-- mycorpus.doc1.annoFeat.xml
-¦   ¦   ¦-- mycorpus.doc1.text.xml
-¦   ¦   ¦-- mycorpus.doc1.tok.xml
-¦   ¦   ¦-- syntax.mycorpus.doc1.const.xml
-¦   ¦   ¦-- syntax.mycorpus.doc1.const_cat.xml
-¦   ¦   ¦-- syntax.mycorpus.doc1.const_func.xml
+|   +-- doc1/
+|   |   |-- coref.doc1.discourse.xml
+|   |   |-- coref.doc1.discourse_anaphoric.xml
+|   |   |-- mycorpus.doc1.anno.xml
+|   |   |-- mycorpus.doc1.annoFeat.xml
+|   |   |-- mycorpus.doc1.text.xml
+|   |   |-- mycorpus.doc1.tok.xml
+|   |   |-- syntax.mycorpus.doc1.const.xml
+|   |   |-- syntax.mycorpus.doc1.const_cat.xml
+|   |   |-- syntax.mycorpus.doc1.const_func.xml
 ... ... ...
 ```
 

@@ -23,13 +23,13 @@ document structure and an alignment for some tokens.
 **Directory structure for a document with two parallel texts.**
 ```
 +-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- english.doc1.text.xml
-¦   ¦   ¦-- english.doc1.tok.xml
-¦   ¦   ¦-- german.doc1.text.xml
-¦   ¦   ¦-- german.doc1.tok.xml
-¦   ¦   ¦-- mycorpus.doc1.align.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
+|   +-- doc1/
+|   |   |-- english.doc1.text.xml
+|   |   |-- english.doc1.tok.xml
+|   |   |-- german.doc1.text.xml
+|   |   |-- german.doc1.tok.xml
+|   |   |-- mycorpus.doc1.align.xml
+|   |   |-- mycorpus.doc1.anno.xml
 ... ... ...
 ```
 
@@ -62,14 +62,14 @@ alignment direction.
 **Directory structure for a document with bidirectional alignment.**
 ```
 +-- mycorpus/
-¦   +-- doc1/
-¦   ¦   ¦-- english.doc1.align_e-g.xml
-¦   ¦   ¦-- english.doc1.text.xml
-¦   ¦   ¦-- english.doc1.tok.xml
-¦   ¦   ¦-- german.doc1.align_g-e.xml
-¦   ¦   ¦-- german.doc1.text.xml
-¦   ¦   ¦-- german.doc1.tok.xml
-¦   ¦   ¦-- mycorpus.doc1.anno.xml
+|   +-- doc1/
+|   |   |-- english.doc1.align_e-g.xml
+|   |   |-- english.doc1.text.xml
+|   |   |-- english.doc1.tok.xml
+|   |   |-- german.doc1.align_g-e.xml
+|   |   |-- german.doc1.text.xml
+|   |   |-- german.doc1.tok.xml
+|   |   |-- mycorpus.doc1.anno.xml
 ... ... ...
 ```
 
@@ -191,3 +191,4 @@ type="audioFile" xml:base="mycorpus.doc1.audioFileSeg.xml">
 
 </paula>
 ```
+
