@@ -88,8 +88,8 @@ type="phrase">
 </paula>
 ```
 
-**Syntax tree for "he takes people out to fish"**\
-![Syntax tree for "he takes people out to fish"](figures/fish_tree.png)
+![](figures/fish_tree.png "Syntax tree for 'he takes people out to fish'")
+
 
 In this example, the individual nodes in the tree from the figure above
 are represented by `struct` elements. Each `struct` element contains
