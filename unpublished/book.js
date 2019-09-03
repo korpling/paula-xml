@@ -618,3 +618,15 @@ function playpen_text(playpen) {
         previousScrollTop = document.scrollingElement.scrollTop;
     }, { passive: true });
 })();
+
+(function captionsFromTitle() {
+    var images = document.querySelectorAll('.content img');
+    for(var idx in images) {
+        var img = images[idx];
+        if(img.title) {
+            // wrap existing image html in a figure and a caption
+            var imgHTML = img.outerHTML;
+            img.parentElement.innerHTML = "<figure>" + imgHTML  + "<figcaption>" + img.title + "</figcaption></figure>";
+        }
+    }
+})();
