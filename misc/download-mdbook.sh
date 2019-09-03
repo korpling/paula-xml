@@ -3,6 +3,7 @@
 MDBOOK_VERSION=${1:-0.3.1}
 
 install_mdbook=false
+install_mdbook_latex=false
 
 if [[ -x $HOME/.cargo/bin/mdbook ]]; then
     echo "Checking for mdBook version ${MDBOOK_VERSION}"
@@ -16,6 +17,14 @@ if [[ -x $HOME/.cargo/bin/mdbook ]]; then
     fi
 else
      install_mdbook=true
+fi
+
+if [[ -x $HOME/.cargo/bin/mdbook-latex ]]; then
+    # TODO: how to determine the version?
+    echo "Using cached mdbook-latex"
+    install_mdbook_latex=false
+else
+    install_mdbook_latex=true
 fi
 
 if [ "$install_mdbook" = true ] ; then
@@ -37,5 +46,11 @@ if [ "$install_mdbook" = true ] ; then
             >&2 echo "Unknown value \"${TRAVIS_OS_NAME}\" for environment variable TRAVIS_OS_NAME"
         	exit 1
         fi
+fi
+
+if [ "$install_mdbook_latex" = true ] ; then
+        echo "Installing mdbook-latex"
+
+        cargo install --force mdbook-latex
 fi
 
