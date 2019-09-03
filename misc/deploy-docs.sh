@@ -12,6 +12,7 @@ if [ -n "$GITHUB_API_KEY" ]; then
     cd gh-pages
     mkdir -p ${SHORT_VERSION}
     cp -R ${TRAVIS_BUILD_DIR}/book/html/* ${SHORT_VERSION}
+    cp -R ${TRAVIS_BUILD_DIR}/book/latex/*.pdf ${SHORT_VERSION}
     git add .
     git -c user.name='travis' -c user.email='travis' commit -m "update documentation for version ${SHORT_VERSION}"
     echo "pushing to gh-pages to https://github.com/${TRAVIS_REPO_SLUG}"
