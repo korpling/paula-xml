@@ -13,13 +13,10 @@ Additionally, the relevant DTDs must be added which define these file
 types. At a minimum, the DTDs necessary for the required files above
 are:
 
-  - `paula_header.dtd`
-
-  - `paula_struct.dtd`
-
-  - `paula_mark.dtd`
-
-  - `paula_text.dtd`
+- `paula_header.dtd`
+- `paula_struct.dtd`
+- `paula_mark.dtd`
+- `paula_text.dtd`
 
 The DTDs may be repeated in each document to simplify moving and adding
 documents at any point in the corpus structure (as in the examples in
@@ -47,16 +44,11 @@ in all folders in case pointing relations or feature annotations are
 added to further corpus documents later on. The following full list of
 DTDs may therefore be included in every document:
 
-  - `paula_header.dtd`
+- `paula_header.dtd`
+- `paula_struct.dtd`
+- `paula_mark.dtd`
+- `paula_text.dtd`
+- `paula_feat.dtd`
+- `paula_rel.dtd`
+- `paula_multiFeat.dtd`
 
-  - `paula_struct.dtd`
-
-  - `paula_mark.dtd`
-
-  - `paula_text.dtd`
-
-  - `paula_feat.dtd`
-
-  - `paula_rel.dtd`
-
-  - `paula_multiFeat.dtd`
