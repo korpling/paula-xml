@@ -86,45 +86,32 @@ XML standard versions to date.
 
 *Version 0.9*
 
-  - Use of [virtual markables](#virtual-markables) is possible.
-
-  - Use of `feat` attribute `@value` to specify [pointing
-    relation](pointing-relations.md) target nodes is possible/
-
-  - No support for [metadata](metadata.md).
-
-  - Use of `annoFeat` is mandatory.
+- Use of [virtual markables](#virtual-markables) is possible.
+- Use of `feat` attribute `@value` to specify [pointing
+  relation](pointing-relations.md) target nodes is possible/
+- No support for [metadata](metadata.md).
+- Use of `annoFeat` is mandatory.
 
 *Version 1.0*
 
-  - Use of virtual markables is no longer possible.
-
-  - Use of `feat` attribute `@value` or `@target` to specify pointing
-    relation target nodes is possible.
-
-  - No support for metadata.
-
-  - Use of `annoFeat` is mandatory.
+- Use of virtual markables is no longer possible.
+- Use of `feat` attribute `@value` or `@target` to specify pointing
+  relation target nodes is possible.
+- No support for metadata.
+- Use of `annoFeat` is mandatory.
 
 *Version 1.1*
 
-  - Use of virtual markables is not possible.
-
-  - Use of `feat` attribute `@value` to specify pointing relation target
-    nodes is not possible.
-
-  - Use of `feat` attribute `@target` to specify pointing relation
-    target nodes is possible but deprecated.
-
-  - New file type and element `rel` is recommended for the specification
-    of pointing relations.
-
-  - Support for metadata on the corpus, subcorpus and document levels.
-
-  - Use of `annoFeat` is optional and deprecated.
-
-  - Support for [parallel corpora](special-scenarios.md#parallel-corpora) via pointing
-    relations.
-
-  - Support for aligned [multimedia files](special-scenarios.md#aligned-audiovideo-files).
+- Use of virtual markables is not possible.
+- Use of `feat` attribute `@value` to specify pointing relation target
+  nodes is not possible.
+- Use of `feat` attribute `@target` to specify pointing relation
+  target nodes is possible but deprecated.
+- New file type and element `rel` is recommended for the specification
+  of pointing relations.
+- Support for metadata on the corpus, subcorpus and document levels.
+- Use of `annoFeat` is optional and deprecated.
+- Support for [parallel corpora](special-scenarios.md#parallel-corpora) via pointing
+  relations.
+- Support for aligned [multimedia files](special-scenarios.md#aligned-audiovideo-files).
 
