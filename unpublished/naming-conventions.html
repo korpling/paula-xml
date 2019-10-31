@@ -151,47 +151,34 @@
                         <h1><a class="header" href="#naming-conventions" id="naming-conventions">Naming conventions</a></h1>
 <p><em>General conventions</em></p>
 <ul>
-<li>
-<p>File names in a directory other than the DTDs should ideally contain
+<li>File names in a directory other than the DTDs should ideally contain
 their corpus path, or at least the document name, i.e. the name of
 the folder they are in. This ensures that files carry unique names
 that make them easier to identify. For example, the tokenization
 file of the document <code>doc01/</code> in the corpus <code>mycorpus</code> might be
-called <code>mycorpus.doc01.tok.xml</code> or <code>doc01.tok.xml</code>.</p>
-</li>
-<li>
-<p>Do not use file or folder names with spaces or non-ascii characters.</p>
-</li>
-<li>
-<p>Do not use file or folder names that begin with a number or
-underscore.</p>
-</li>
-<li>
-<p>When using <a href="namespaces.html">namespaces</a>, remember that the string
+called <code>mycorpus.doc01.tok.xml</code> or <code>doc01.tok.xml</code>.</li>
+<li>Do not use file or folder names with spaces or non-ascii characters.</li>
+<li>Do not use file or folder names that begin with a number or
+underscore.</li>
+<li>When using <a href="namespaces.html">namespaces</a>, remember that the string
 before the first period in the file name is construed as the
 namespace. If you do not wish to use namespaces and follow the file
 naming conventions given here, the namespace for all of your files
 will be the corpus name, since files will always be named:
-<code>mycorpus.*</code>.</p>
-</li>
+<code>mycorpus.*</code>.</li>
 </ul>
 <p><em>annoSet, annoFeat, primary text data and tokenization</em></p>
 <ul>
-<li>
-<p>The <code>annoSet</code> and, if used, <code>annoFeat</code> files in a document are
+<li>The <code>annoSet</code> and, if used, <code>annoFeat</code> files in a document are
 conventionally named using the document path convention above, with
 the suffixes anno.xml and anno_feat.xml respectively. For example
 they can be called: <code>mycorpus.doc01.anno.xml</code> and
-<code>mycorpus.doc01.anno_feat.xml</code>.</p>
-</li>
-<li>
-<p>If there is only one <code>primary text data</code> file and one
+<code>mycorpus.doc01.anno_feat.xml</code>.</li>
+<li>If there is only one <code>primary text data</code> file and one
 <a href="spans-and-markables.html#tokenizations-and-token-markables"><code>tokenization</code></a>, they are usually named similarly,
 but with the suffixes text and tok: <code>mycorpus.doc01.text.xml</code> and
-<code>mycorpus.doc01.tok.xml</code>.</p>
-</li>
-<li>
-<p>If there are multiple primary text data files or tokenization, their
+<code>mycorpus.doc01.tok.xml</code>.</li>
+<li>If there are multiple primary text data files or tokenization, their
 distinguishing features may be used as namespaces, e.g. the name of
 the language in a <a href="special-scenarios.html#parallel-corpora">parallel corpus</a> documents:
 <code>english.mycorpus.doc01.text.xml</code> and
@@ -201,110 +188,85 @@ a parallel corpus architecture for <a href="special-scenarios.html#dialogue-data
 suffixes distinguishing text and token files may be used before
 &quot;text&quot; and &quot;tok&quot;, as in: <code>speaker1.mycorpus.doc01.english.text.xml</code>
 and <code>speaker1.mycorpus.doc01.german.text.xml</code>, and the same for
-<code>*.tok.xml</code> files.</p>
-</li>
+<code>*.tok.xml</code> files.</li>
 </ul>
 <p><em>Anntotation span markables and feature annotations</em></p>
 <ul>
-<li>
-<p>By convention, annotation span <a href="spans-and-markables.html">markable</a> files are named
+<li>By convention, annotation span <a href="spans-and-markables.html">markable</a> files are named
 using the current document name as a prefix, followed by an
 underscore and the markList's type, followed by &quot;_seg.xml&quot;. For
 example, a markable file that marks text segments corresponding to
 discourse referents for further annotation may be named
 <code>mycorpus.doc01.referent_seg.xml</code>. This tells us just by looking at
 the file name that the markable <code>@type</code> attribute in the <code>markList</code>
-element is &quot;referent&quot;.</p>
-</li>
-<li>
-<p>The above file may may also be put in a <a href="namespaces.html">namespace</a>
+element is &quot;referent&quot;.</li>
+<li>The above file may may also be put in a <a href="namespaces.html">namespace</a>
 with some other files relevant to discourse annotation, in which
 case the files receive a common prefix, e.g. the file could be
-named: <code>discourse.mycorpus.doc01.referent_seg.xml</code>.</p>
-</li>
-<li>
-<p>A feature annotation of the above file giving the referent segment
+named: <code>discourse.mycorpus.doc01.referent_seg.xml</code>.</li>
+<li>A feature annotation of the above file giving the referent segment
 e.g. an annotation called &quot;type&quot; (marking the referent, say, as a
 person or geopolitical entity), will be given a file name identical
 to that of the <code>_seg</code> file, but with the annotation name appended
 after a further underscore:
-<code>discourse.mycorpus.doc01.referent_seg_type.xml</code>.</p>
-</li>
+<code>discourse.mycorpus.doc01.referent_seg_type.xml</code>.</li>
 </ul>
 <p><em>Hierarchical struct nodes and feature annotations</em></p>
 <ul>
-<li>
-<p>Hierarchical <a href="hierarchical-structures.html#structs"><code>struct</code></a> nodes are placed in files using the
+<li>Hierarchical <a href="hierarchical-structures.html#structs"><code>struct</code></a> nodes are placed in files using the
 same general conventions with regard to namespaces and
 corpus/document path above, and carry a suffix corresponding to the
 <code>@type</code> attribute in the <code>structList</code> element after an underscore,
 as follows. For nodes annotating syntactic constituents of the type
 &quot;const&quot; within the <a href="namespaces.html">namespace</a> &quot;syntax&quot; we may get a
-file called: <code>syntax.mycorpus.doc01.const.xml</code>.</p>
-</li>
-<li>
-<p>Annotations of struct nodes are given the same name as the
+file called: <code>syntax.mycorpus.doc01.const.xml</code>.</li>
+<li>Annotations of struct nodes are given the same name as the
 corresponding node file, with a suffix consisting of an underscore
 and the annotation's name from the <code>@type</code> attribute of the
 <code>featList</code> element. For example, an annotation of the above
 constituent nodes giving the syntactic category called &quot;cat&quot; should
-be named: <code>syntax.mycorpus.doc01.const_cat.xml</code>.</p>
-</li>
-<li>
-<p>Feature annotations of edges in the same <code>struct</code> file should be
+be named: <code>syntax.mycorpus.doc01.const_cat.xml</code>.</li>
+<li>Feature annotations of edges in the same <code>struct</code> file should be
 named using the same convention, e.g. a syntactic function
 annotation of the type &quot;func&quot; may be called:
-<code>syntax.mycorpus.doc01.const_func.xml</code>.</p>
-</li>
+<code>syntax.mycorpus.doc01.const_func.xml</code>.</li>
 </ul>
 <p><em>Pointing relations and rel annotations</em></p>
 <ul>
-<li>
-<p><a href="pointing-relations.html">Pointing relation</a> files are named using the
+<li><a href="pointing-relations.html">Pointing relation</a> files are named using the
 same conventions as above, with the edge type used as a suffix after
 the document name, e.g. a coreference edge file of the type &quot;coref&quot;
 in the discourse <a href="namespaces.html">namespace</a> should be named:
-<code>discourse.mycorpus.doc01.coref.xml</code>.</p>
-</li>
-<li>
-<p>Feature annotations of pointing relation edges are given the file
+<code>discourse.mycorpus.doc01.coref.xml</code>.</li>
+<li>Feature annotations of pointing relation edges are given the file
 name of the pointing relation file with an underscore and the
 annotation type as a suffix. For example, annotating the &quot;coref&quot;
 edge above with the annotation &quot;type&quot; (e.g. anaphoric or
 appositional) results in the file name:
-<code>discourse.mycorpus.doc01.coref_type.xml</code>.</p>
-</li>
+<code>discourse.mycorpus.doc01.coref_type.xml</code>.</li>
 </ul>
 <p><em>multiFeat annotations</em></p>
 <ul>
-<li>
-<p>A <code>mutliFeat</code> file has no single annotation type. It is therefore
+<li>A <code>mutliFeat</code> file has no single annotation type. It is therefore
 usually named using the name of the file to which it adds
 annotations, with the suffix &quot;_multiFeat&quot;. Therefore the name of a
 <code>multiFeat</code> file annotation a token file is e.g.
 <code>mycorpus.doc1.tok_multiFeat.xml</code>, a <code>multiFeat</code> file annotating
 syntactic constituents called &quot;const&quot; might be called
-<code>mycorpus.doc1.const_multiFeat.xml</code>, etc.</p>
-</li>
-<li>
-<p>For metadata multiFeat annotations, usually the document path and
+<code>mycorpus.doc1.const_multiFeat.xml</code>, etc.</li>
+<li>For metadata multiFeat annotations, usually the document path and
 the suffix &quot;meta_multiFeat&quot; are used, e.g.
-<code>mycorpus.doc1.meta_multiFeat.xml</code>.</p>
-</li>
+<code>mycorpus.doc1.meta_multiFeat.xml</code>.</li>
 </ul>
 <p><em>The paula_id attribute</em></p>
 <ul>
-<li>
-<p>The <code>@paula_id</code> attribute of the <code>header</code> element in each filed
+<li>The <code>@paula_id</code> attribute of the <code>header</code> element in each filed
 should be named like the file name itself without the .xml
 extension, e.g. the paula_id of <code>mycorpus.doc01.tok.xml</code> might be
-<code>mycorpus.doc01.tok</code>.</p>
-</li>
-<li>
-<p>If the resulting name has no suffix containing an underscore, it is
+<code>mycorpus.doc01.tok</code>.</li>
+<li>If the resulting name has no suffix containing an underscore, it is
 possible to replace the final period in the file name with an
-underscore, e.g. <code>mycorpus.doc01_tok</code>.</p>
-</li>
+underscore, e.g. <code>mycorpus.doc01_tok</code>.</li>
 </ul>
 
                     </main>
