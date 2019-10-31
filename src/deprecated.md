@@ -84,7 +84,7 @@ ranges of tokens in the `@xlink:href` attribute.
 This section lists distinctive characteristics of the different PAULA
 XML standard versions to date.
 
-*Version 0.9*
+### Version 0.9
 
 - Use of [virtual markables](#virtual-markables) is possible.
 - Use of `feat` attribute `@value` to specify [pointing
@@ -92,7 +92,7 @@ XML standard versions to date.
 - No support for [metadata](metadata.md).
 - Use of `annoFeat` is mandatory.
 
-*Version 1.0*
+### Version 1.0
 
 - Use of virtual markables is no longer possible.
 - Use of `feat` attribute `@value` or `@target` to specify pointing
@@ -100,7 +100,7 @@ XML standard versions to date.
 - No support for metadata.
 - Use of `annoFeat` is mandatory.
 
-*Version 1.1*
+### Version 1.1
 
 - Use of virtual markables is not possible.
 - Use of `feat` attribute `@value` to specify pointing relation target
