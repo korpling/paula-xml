@@ -8,7 +8,7 @@ As a generalized XML format, PAULA is indifferent to particular names or semanti
 
 ## Online version of the documentation
 
-See the current PAULA documentation: [PAULA version 1.1]([https://korpling.github.io/paula-xml/unpublished/PAULA%20XML%20Documentation.pdf](https://korpling.github.io/paula-xml/unpublished/PAULA%20XML%20Documentation.pdf)) (PDF)
+See the current PAULA documentation: [PAULA version 1.1](http://www.sfb632.uni-potsdam.de/downloads/paula/PAULA_P1.1.2013.1.21a.pdf) (PDF)
 
 ## References
 
